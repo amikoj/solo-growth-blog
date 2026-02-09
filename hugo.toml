@@ -20,6 +20,8 @@ beianText = "皖ICP备2025077420号-1"
 beianLink = "https://beian.miit.gov.cn/"
 
 [markup]
+  [markup.goldmark.renderer]
+  unsafe = true
   [markup.highlight]
   noClasses = true
 

@@ -1,4 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M22 2L11 13"></path>
-  <path d="M22 2L15 22L11 13L2 9L22 2Z"></path>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" stroke="#2563eb" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Concept: Lazy & Chill (The Outline of Comfort) -->
+  <!-- A single continuous fluid line drawing a heavy, relaxed figure sitting/slouching -->
+  
+  <!-- Path starts at the "Head", flows down the "Curved Back", widens at the "Bottom/Hips", -->
+  <!-- curves up for "Knees", and tucks in for "Hands/Belly" -->
+  <path d="M30 14 C 18 14, 10 24, 10 36 C 10 52, 20 58, 36 58 C 50 58, 58 50, 58 38 C 58 32, 50 28, 42 32" />
+  
+  <!-- A small floating arc above/near head to suggest "daydreaming" or just style balance -->
+  <path d="M38 10 C 42 8, 46 10, 48 12" stroke-width="3" opacity="0.6"/>
 </svg>

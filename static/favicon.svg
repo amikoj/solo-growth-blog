@@ -1,4 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-  <path d="M22 2L11 13"></path>
-  <path d="M22 2L15 22L11 13L2 9L22 2Z"></path>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none" stroke="#2563eb" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Simplified Lazy Outline for Favicon -->
+  <!-- Just the main body shape, thicker stroke for visibility -->
+  <path d="M28 12 C 16 12, 8 22, 8 36 C 8 52, 18 60, 36 60 C 52 60, 60 50, 60 36 C 60 28, 50 24, 42 28" />
 </svg>
