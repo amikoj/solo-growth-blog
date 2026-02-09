@@ -140,11 +140,18 @@ a:hover { color: #1d4ed8; text-decoration: underline; }
 .content ul, .content ol { margin: 1em 0 1em 24px; padding: 0; }
 .content li { margin: 0.5em 0; }
 .content img {
-  max-width: 100%;
-  height: auto;
+  max-width: 100% !important;
+  height: auto !important;
   border-radius: 8px;
   display: block;
   margin: 1.5em auto;
+}
+.content figure {
+  margin: 1.5em 0;
+  text-align: center;
+}
+.content figure img {
+  margin: 0 auto;
 }
 .content blockquote {
   border-left: 4px solid var(--link);
@@ -235,4 +242,69 @@ pre code {
   background: transparent;
   padding: 0;
   color: inherit;
+}
+
+/* Mobile Responsive */
+@media (max-width: 640px) {
+  .container {
+    padding: 24px 16px 48px;
+  }
+
+  .site-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+
+  .nav {
+    width: 100%;
+    justify-content: flex-start;
+    gap: 20px;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 4px; /* Hide scrollbar visual or give space */
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .nav::-webkit-scrollbar {
+    display: none;
+  }
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .nav {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+
+  .home-title {
+    font-size: 28px;
+  }
+
+  .intro .content {
+    font-size: 16px;
+    margin-bottom: 32px;
+  }
+
+  .project-grid {
+    gap: 16px;
+    grid-template-columns: 1fr;
+  }
+  
+  .page-title {
+    font-size: 26px;
+  }
+  
+  .content {
+    font-size: 16px;
+  }
+  
+  .footer-row {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .site-footer {
+    margin-top: 48px;
+  }
 }
