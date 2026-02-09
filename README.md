@@ -39,13 +39,23 @@ npm run dev
 
 打开：`http://localhost:1313/`
 
-构建生产产物：
+构建（默认本地输出到 `dist-local/`，Vercel 输出到 `dist/`）：
 
 ```bash
 npm run build
 ```
 
-产物输出到 `dist/`（这是 Vercel 的输出目录）。
+如需本地强制输出到 `dist/`：
+
+```bash
+npm run build:vercel
+```
+
+或指定输出目录（Windows PowerShell 示例）：
+
+```bash
+$env:HUGO_DEST="dist"; npm run build
+```
 
 ## 配置说明（必看）
 
@@ -75,7 +85,7 @@ npm run build
 1. 将仓库推到 GitHub
 2. 在 Vercel 中 Import 该仓库
 3. 构建配置：
-   - Build Command：`npm run build`
+   - Build Command：`npm run build:vercel`
    - Output Directory：`dist`
 4. 绑定自定义域名：`www.enjoytoday.cn`
 
@@ -103,4 +113,8 @@ draft = false
 ### 为什么构建输出是 dist/ 而不是 public/？
 
 在当前 Windows 环境下，`public/robots.txt` 可能被系统占用导致 Hugo 写入失败。为保证构建稳定，已将输出目录切换到 `dist/`（同时已同步 Vercel 输出目录配置）。
+
+### 为什么本地 build 默认输出到 dist-local/？
+
+在 Windows 上 `robots.txt` 偶发被系统进程占用，导致对同一路径反复覆盖写入失败。本地默认使用 `dist-local/` 规避文件锁；Vercel 构建环境干净且可稳定输出到 `dist/`。
 

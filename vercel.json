@@ -1,5 +1,5 @@
 {
-  "buildCommand": "npm run build",
+  "buildCommand": "npm run build:vercel",
   "outputDirectory": "dist",
   "redirects": [
     { "source": "/feed.xml", "destination": "/index.xml", "permanent": true },

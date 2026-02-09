@@ -1,5 +1,6 @@
 public/
 dist/
+dist-local/
 resources/
 node_modules/
 .vercel/

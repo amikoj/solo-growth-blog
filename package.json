@@ -3,7 +3,9 @@
   "private": true,
   "scripts": {
     "dev": "hugo server -D --disableFastRender",
-    "build": "hugo --gc --minify -d dist"
+    "build": "node -e \"const {spawnSync}=require('child_process'); const dest=process.env.HUGO_DEST || (process.env.VERCEL ? 'dist' : 'dist-local'); const r=spawnSync('hugo',['--gc','--minify','-d',dest],{stdio:'inherit',shell:true}); process.exit(r.status ?? 1);\"",
+    "build:vercel": "hugo --gc --minify -d dist",
+    "build:local": "hugo --gc --minify -d dist-local"
   },
   "devDependencies": {
     "hugo-bin": "^0.149.2"
