@@ -85,4 +85,4 @@ Stay tuned.
 ### About the Author
 
 **Amiko** is a software engineer turned indie hacker, learning to build and sell to the global market.
-Follow my journey on [X (Twitter)](https://x.com/yourusername) or subscribe to the [RSS Feed](/index.xml).
+Follow my journey on [X (Twitter)](https://x.com/giftwiseFei) or subscribe to the [RSS Feed](/index.xml).
