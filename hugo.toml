@@ -1,0 +1,36 @@
+baseURL = "https://www.enjoytoday.cn/"
+languageCode = "en-us"
+title = "Enjoy Today"
+enableRobotsTXT = true
+
+[pagination]
+pagerSize = 10
+
+[taxonomies]
+tag = "tags"
+category = "categories"
+
+[params]
+siteSubtitle = "Indie product logs and shipping notes"
+siteDescription = "A product log blog for indie builders. Learnings, releases, and experiments."
+author = "Enjoy Today"
+googleAnalyticsID = "G-0DZNVZWT2Q"
+adsenseClient = "ca-pub-5905842540305144"
+beianText = "皖ICP备2025077420号-1"
+beianLink = "https://beian.miit.gov.cn/"
+
+[markup]
+  [markup.highlight]
+  noClasses = true
+
+[menu]
+  [[menu.main]]
+  name = "Posts"
+  pageRef = "/posts"
+  weight = 10
+
+  [[menu.main]]
+  name = "About"
+  pageRef = "/about"
+  weight = 20
+

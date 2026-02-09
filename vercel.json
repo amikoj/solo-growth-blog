@@ -1,0 +1,8 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "redirects": [
+    { "source": "/feed.xml", "destination": "/index.xml", "permanent": true },
+    { "source": "/rss.xml", "destination": "/index.xml", "permanent": true }
+  ]
+}

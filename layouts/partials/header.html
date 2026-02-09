@@ -1,0 +1,16 @@
+<header class="site-header">
+  <div class="brand">
+    <a class="brand-title" href="{{ "/" | relURL }}">{{ .Site.Title }}</a>
+    {{ with .Site.Params.siteSubtitle }}
+      <div class="brand-subtitle">{{ . }}</div>
+    {{ end }}
+  </div>
+  {{ with .Site.Menus.main }}
+    <nav class="nav">
+      {{ range . }}
+        <a class="nav-link" href="{{ .URL | relURL }}">{{ .Name }}</a>
+      {{ end }}
+    </nav>
+  {{ end }}
+</header>
+

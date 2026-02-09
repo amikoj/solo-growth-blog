@@ -1,0 +1,36 @@
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+{{ $title := .Site.Title }}
+{{ if not .IsHome }}
+  {{ $title = printf "%s · %s" .Title .Site.Title }}
+{{ end }}
+<title>{{ $title }}</title>
+
+{{ $description := .Site.Params.siteDescription }}
+{{ with .Description }}{{ $description = . }}{{ end }}
+<meta name="description" content="{{ $description }}" />
+
+<link rel="canonical" href="{{ .Permalink }}" />
+<link rel="stylesheet" href="{{ "css/main.css" | relURL }}" />
+
+{{ with .OutputFormats.Get "RSS" }}
+  <link rel="alternate" type="application/rss+xml" href="{{ .RelPermalink }}" title="{{ $.Site.Title }}" />
+{{ end }}
+
+{{ $gaID := .Site.Params.googleAnalyticsID }}
+{{ if and hugo.IsProduction $gaID }}
+  <script async src="https://www.googletagmanager.com/gtag/js?id={{ $gaID }}"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', '{{ $gaID }}');
+  </script>
+{{ end }}
+
+{{ $adsenseClient := .Site.Params.adsenseClient }}
+{{ if and hugo.IsProduction $adsenseClient }}
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client={{ $adsenseClient }}" crossorigin="anonymous"></script>
+{{ end }}
+

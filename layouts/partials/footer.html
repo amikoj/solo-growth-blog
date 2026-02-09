@@ -1,0 +1,19 @@
+<footer class="site-footer">
+  <div class="footer-row">
+    <div class="footer-left">© {{ now.Year }} {{ .Site.Params.author }}</div>
+    <div class="footer-right">
+      <a href="{{ "index.xml" | relURL }}">RSS</a>
+    </div>
+  </div>
+  {{ with .Site.Params.beianText }}
+    <div class="beian">
+      {{ $link := $.Site.Params.beianLink }}
+      {{ if $link }}
+        <a href="{{ $link }}" rel="noopener noreferrer" target="_blank">{{ . }}</a>
+      {{ else }}
+        {{ . }}
+      {{ end }}
+    </div>
+  {{ end }}
+</footer>
+

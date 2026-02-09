@@ -1,0 +1,6 @@
+public/
+dist/
+resources/
+node_modules/
+.vercel/
+.DS_Store

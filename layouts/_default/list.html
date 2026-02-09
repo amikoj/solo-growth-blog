@@ -1,0 +1,30 @@
+{{ define "main" }}
+  <div class="page">
+    <h1 class="page-title">{{ .Title }}</h1>
+    {{ with .Content }}
+      <div class="content">{{ . }}</div>
+    {{ end }}
+
+    {{ $paginator := .Paginate .Pages }}
+    <ul class="post-list">
+      {{ range $paginator.Pages }}
+        <li class="post-item">
+          <a class="post-link" href="{{ .RelPermalink }}">{{ .Title }}</a>
+          <div class="post-meta">
+            <time datetime="{{ .Date }}">{{ .Date.Format "2006-01-02" }}</time>
+            {{ with .Params.tags }}
+              <span class="post-tags">
+                {{ range $i, $t := . }}
+                  {{ if $i }}<span class="sep">·</span>{{ end }}
+                  <a href="{{ (printf "/tags/%s/" ($t | urlize)) | relURL }}">{{ $t }}</a>
+                {{ end }}
+              </span>
+            {{ end }}
+          </div>
+        </li>
+      {{ end }}
+    </ul>
+
+    {{ template "_internal/pagination.html" . }}
+  </div>
+{{ end }}

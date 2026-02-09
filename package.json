@@ -1,0 +1,11 @@
+{
+  "name": "solo-growth-blog",
+  "private": true,
+  "scripts": {
+    "dev": "hugo server -D --disableFastRender",
+    "build": "hugo --gc --minify -d dist"
+  },
+  "devDependencies": {
+    "hugo-bin": "^0.149.2"
+  }
+}
