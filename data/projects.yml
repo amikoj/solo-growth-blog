@@ -1,17 +1,18 @@
-- name: "Enjoy Today"
-  description: "A minimal product log blog for indie hackers."
-  url: "https://www.enjoytoday.cn"
+- name: "Personal Notes"
+  description: "My personal notes on various topics."
+  url: "/series/personal-notes"
+  icon: "📝"
+  tags: ["Personal", "Notes"]
+
+- name: "Solo Trial"
+  description: "A Solo Development Trial."
+  url: "/series/solo-trial"
   icon: "🚀"
   tags: ["Hugo", "Indie"]
 
-- name: "Project Alpha"
-  description: "An experimental tool for productivity."
-  url: "#"
-  icon: "⚡"
-  tags: ["SaaS", "WIP"]
+- name: "Mindgift"
+  description: "An experimental tool for Mindgift."
+  url: "https://www.getmindgift.com"
+  icon: "https://www.getmindgift.com/logo.svg"
+  tags: ["Mindgift", "AI Product"]
 
-- name: "Design System"
-  description: "My personal design component library."
-  url: "#"
-  icon: "🎨"
-  tags: ["UI/UX", "Open Source"]

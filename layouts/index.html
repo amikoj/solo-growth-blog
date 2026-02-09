@@ -13,7 +13,13 @@
       <div class="project-grid">
         {{ range .Site.Data.projects }}
         <a href="{{ .url }}" class="project-card" target="_blank" rel="noopener">
-          <div class="project-icon">{{ .icon }}</div>
+          <div class="project-icon">
+            {{ if or (strings.HasPrefix .icon "http") (strings.HasPrefix .icon "/") }}
+              <img src="{{ .icon }}" alt="{{ .name }} icon" style="width: 24px; height: 24px; object-fit: contain; vertical-align: middle;">
+            {{ else }}
+              {{ .icon }}
+            {{ end }}
+          </div>
           <div class="project-info">
             <h3 class="project-name">{{ .name }}</h3>
             <p class="project-desc">{{ .description }}</p>

@@ -9,6 +9,7 @@ pagerSize = 10
 [taxonomies]
 tag = "tags"
 category = "categories"
+series = "series"
 
 [params]
 siteSubtitle = "Indie product logs by Amiko"
