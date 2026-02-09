@@ -11,9 +11,9 @@ tag = "tags"
 category = "categories"
 
 [params]
-siteSubtitle = "Indie product logs and shipping notes"
+siteSubtitle = "Indie product logs by Amiko"
 siteDescription = "A product log blog for indie builders. Learnings, releases, and experiments."
-author = "Enjoy Today"
+author = "Amiko"
 googleAnalyticsID = "G-0DZNVZWT2Q"
 adsenseClient = "ca-pub-5905842540305144"
 beianText = "皖ICP备2025077420号-1"

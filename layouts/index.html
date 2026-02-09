@@ -1,21 +1,46 @@
 {{ define "main" }}
   <section class="home">
-    <h1 class="home-title">{{ .Title }}</h1>
-    {{ with .Content }}
-      <div class="content">{{ . }}</div>
+    <div class="intro">
+      <h1 class="home-title">{{ .Title }}</h1>
+      {{ with .Content }}
+        <div class="content">{{ . }}</div>
+      {{ end }}
+    </div>
+
+    {{ if .Site.Data.projects }}
+    <div class="projects-section">
+      <h2 class="section-title">Shipping</h2>
+      <div class="project-grid">
+        {{ range .Site.Data.projects }}
+        <a href="{{ .url }}" class="project-card" target="_blank" rel="noopener">
+          <div class="project-icon">{{ .icon }}</div>
+          <div class="project-info">
+            <h3 class="project-name">{{ .name }}</h3>
+            <p class="project-desc">{{ .description }}</p>
+            <div class="project-tags">
+              {{ range .tags }}
+              <span class="project-tag">{{ . }}</span>
+              {{ end }}
+            </div>
+          </div>
+        </a>
+        {{ end }}
+      </div>
+    </div>
     {{ end }}
 
-    <h2 class="section-title">Latest posts</h2>
-    <ul class="post-list">
-      {{ range first 10 (where .Site.RegularPages "Section" "posts") }}
+    <div class="posts-section">
+      <h2 class="section-title">Log</h2>
+      <ul class="post-list">
+        {{ range first 10 (where .Site.RegularPages "Section" "posts") }}
         <li class="post-item">
           <a class="post-link" href="{{ .RelPermalink }}">{{ .Title }}</a>
           <div class="post-meta">
-            <time datetime="{{ .Date }}">{{ .Date.Format "2006-01-02" }}</time>
+            <time datetime="{{ .Date }}">{{ .Date.Format "Jan 02, 2006" }}</time>
           </div>
         </li>
-      {{ end }}
-    </ul>
+        {{ end }}
+      </ul>
+    </div>
   </section>
 {{ end }}
-

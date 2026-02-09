@@ -1,0 +1,17 @@
+- name: "Enjoy Today"
+  description: "A minimal product log blog for indie hackers."
+  url: "https://www.enjoytoday.cn"
+  icon: "🚀"
+  tags: ["Hugo", "Indie"]
+
+- name: "Project Alpha"
+  description: "An experimental tool for productivity."
+  url: "#"
+  icon: "⚡"
+  tags: ["SaaS", "WIP"]
+
+- name: "Design System"
+  description: "My personal design component library."
+  url: "#"
+  icon: "🎨"
+  tags: ["UI/UX", "Open Source"]

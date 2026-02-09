@@ -1,7 +1,25 @@
 +++
-title = "About"
+title = "About Amiko"
 date = 2026-02-09T00:00:00Z
 +++
 
-This is an English blog focused on indie building: product logs, launch notes, growth experiments, and what I learn along the way.
+Hi, I'm **Amiko**. 👋
 
+I am a software engineer with **10+ years of experience**, specializing in **Frontend** and **Android** development.
+
+After a decade of coding for others, I decided to step out of my comfort zone and start a new journey as an **Indie Hacker**. I consider myself a "beginner" in the global market (出海小白), learning how to build, ship, and grow products for a worldwide audience.
+
+### What is this blog?
+
+**Enjoy Today** is my personal log where I document everything about this transition:
+- 🚢 **Product Logs**: Updates on what I'm building.
+- 📝 **Learnings**: Technical and non-technical lessons learned along the way.
+- 💡 **Experiments**: Growth tactics, marketing attempts, and results.
+
+My goal is to ship small, useful products and enjoy the process of creation.
+
+---
+
+### Connect
+
+If you are also an indie builder or interested in my journey, feel free to follow along!

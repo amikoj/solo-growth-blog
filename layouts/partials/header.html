@@ -1,6 +1,9 @@
 <header class="site-header">
   <div class="brand">
-    <a class="brand-title" href="{{ "/" | relURL }}">{{ .Site.Title }}</a>
+    <a class="brand-title" href="{{ "/" | relURL }}">
+      <img src="{{ "images/logo.svg" | relURL }}" alt="Logo" class="site-logo" width="32" height="32">
+      {{ .Site.Title }}
+    </a>
     {{ with .Site.Params.siteSubtitle }}
       <div class="brand-subtitle">{{ . }}</div>
     {{ end }}
