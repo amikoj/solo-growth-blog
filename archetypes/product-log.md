@@ -28,5 +28,5 @@ description = "A short summary of this log."
 
 ### About the Author
 
-**Amiko** is a software engineer turned indie hacker, building products for the global market. 
-Follow my journey on [X (Twitter)](https://x.com/yourusername) or subscribe to the [RSS Feed](/index.xml).
+**Mason** is a software engineer turned indie hacker, building products for the global market. 
+Follow my journey on [X (Twitter)](https://x.com/yourusername) or subscribe to the [RSS Feed](/feed.xml).

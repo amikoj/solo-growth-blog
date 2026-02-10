@@ -14,8 +14,29 @@
         {{ end }}
       </div>
     </header>
-    <div class="content">
-      {{ .Content }}
+    
+    <div class="post-container">
+      <div class="content">
+        {{ .Content }}
+      </div>
+      
+      {{ if .TableOfContents }}
+      <aside class="toc-sidebar">
+        <div class="toc-container">
+          <h3 class="toc-title">Table of Contents</h3>
+          {{ .TableOfContents }}
+        </div>
+      </aside>
+      <script>
+        // Add title attribute to TOC links for hover effect
+        document.addEventListener('DOMContentLoaded', function() {
+          const tocLinks = document.querySelectorAll('#TableOfContents a');
+          tocLinks.forEach(link => {
+            link.title = link.innerText;
+          });
+        });
+      </script>
+      {{ end }}
     </div>
   </article>
 {{ end }}

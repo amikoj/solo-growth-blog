@@ -2,6 +2,7 @@
 title = "Chrome Extension 101: Building Your First Manifest V3 Plugin"
 date = 2022-12-10T00:00:00Z
 tags = ["technical-guide", "chrome-extension", "javascript"]
+categories = ["development"]
 series = "tech-stack"
 description = "A step-by-step guide to creating a simple Chrome Extension using Manifest V3. Perfect for beginners looking to build micro-SaaS tools."
 +++
@@ -126,5 +127,5 @@ This simple structure is the foundation for almost every browser tool you use. N
 
 ### About the Author
 
-**Amiko** is an indie developer exploring the micro-SaaS ecosystem.
-Follow my journey on [X (Twitter)](https://x.com/giftwiseFei) or subscribe to the [RSS Feed](/index.xml).
+**Mason** is an indie developer exploring the micro-SaaS ecosystem.
+Follow my journey on [X (Twitter)](https://x.com/giftwiseFei) or subscribe to the [RSS Feed](/feed.xml).

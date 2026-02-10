@@ -2,6 +2,7 @@
 title = "First Shipment: Setting the Baseline"
 date = 2026-02-09T00:00:00Z
 tags = ["product-log", "meta", "hugo"]
+categories = ["indie-hacking"]
 series = "personal-notes"
 description = "Why and how I built this blog as the first step of my indie hacking journey."
 +++
@@ -84,5 +85,5 @@ Stay tuned.
 
 ### About the Author
 
-**Amiko** is a software engineer turned indie hacker, learning to build and sell to the global market.
-Follow my journey on [X (Twitter)](https://x.com/giftwiseFei) or subscribe to the [RSS Feed](/index.xml).
+**Mason** is a software engineer turned indie hacker, learning to build and sell to the global market.
+Follow my journey on [X (Twitter)](https://x.com/giftwiseFei) or subscribe to the [RSS Feed](/feed.xml).

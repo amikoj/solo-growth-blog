@@ -12,7 +12,7 @@
 - `ads.txt` 根路径可访问
 - `sitemap.xml` 自动生成
 - `robots.txt` 显式声明 Sitemap
-- RSS：`/index.xml`，并兼容 `/feed.xml`（Vercel Redirect）
+- RSS：`/feed.xml`，并兼容 `/index.xml`（Vercel Redirect）
 - 国内访问可选展示备案信息（页脚）
 
 ## 目录结构（关键）
@@ -78,8 +78,8 @@ $env:HUGO_DEST="dist"; npm run build
 - Sitemap：`/sitemap.xml`
 - Robots：`/robots.txt`（包含 `Sitemap: https://www.enjoytoday.cn/sitemap.xml`）
 - RSS：
-  - 主 feed：`/index.xml`
-  - 兼容：`/feed.xml`、`/rss.xml` → `/index.xml`（见 `vercel.json`）
+  - 主 feed：`/feed.xml`
+  - 兼容：`/index.xml`、`/rss.xml` → `/feed.xml`（见 `vercel.json`）
 
 ## Vercel + GitHub 部署
 

@@ -2,6 +2,7 @@
 title = "Mindgift: Decoding the Art of Gift Giving with AI"
 date = 2026-01-07T15:20:00Z
 tags = ["product-log", "ai", "mindgift"]
+categories = ["product", "indie-hacking"]
 series = "solo-trial"
 description = "Introducing Mindgift, an AI-powered tool that helps you find the perfect gift by understanding the recipient's unique personality."
 +++
@@ -69,5 +70,5 @@ Give it a try next time you're stuck on a gift. And if it suggests a whiskey sto
 
 ### About the Author
 
-**Amiko** is a software engineer turned indie hacker, building products like **Mindgift** to solve real-world problems.
+**Mason** is a software engineer turned indie hacker, building products like **Mindgift** to solve real-world problems.
 Follow my journey on [X (Twitter)](https://x.com/giftwiseFei) or subscribe to the [RSS Feed](/index.xml).

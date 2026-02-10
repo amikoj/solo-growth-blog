@@ -42,7 +42,22 @@
         <li class="post-item">
           <a class="post-link" href="{{ .RelPermalink }}">{{ .Title }}</a>
           <div class="post-meta">
-            <time datetime="{{ .Date }}">{{ .Date.Format "Jan 02, 2006" }}</time>
+            <time datetime="{{ .Date }}">{{ .Date.Format "2006-01-02" }}</time>
+            {{ with .Params.tags }}
+            <span class="sep">·</span>
+            <span class="post-tags">
+              {{ range first 3 . }}
+              <a href="{{ (printf "/tags/%s/" (. | urlize)) | relURL }}">#{{ . }}</a>
+              {{ end }}
+            </span>
+            {{ end }}
+          </div>
+          <div class="post-summary">
+            {{ if .Description }}
+              {{ .Description }}
+            {{ else }}
+              {{ .Summary | truncate 140 }}
+            {{ end }}
           </div>
         </li>
         {{ end }}

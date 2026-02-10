@@ -21,6 +21,13 @@
               </span>
             {{ end }}
           </div>
+          <div class="post-summary">
+            {{ if .Description }}
+              {{ .Description }}
+            {{ else }}
+              {{ .Summary | truncate 160 }}
+            {{ end }}
+          </div>
         </li>
       {{ end }}
     </ul>

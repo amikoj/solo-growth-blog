@@ -2,6 +2,7 @@
 title = "Chrome Architecture: How Many Processes for One Tab?"
 date = 2024-01-20T00:00:00Z
 tags = ["browser-internals", "chrome", "performance"]
+categories = ["development"]
 series = "tech-stack"
 description = "Ever wondered why Chrome uses so much RAM? We dive into the multi-process architecture and the threads that power your web pages."
 +++
@@ -71,5 +72,5 @@ Understanding this architecture changes how you code:
 
 ### About the Author
 
-**Amiko** is an indie developer obsessed with performance.
-Follow my journey on [X (Twitter)](https://x.com/giftwiseFei) or subscribe to the [RSS Feed](/index.xml).
+**Mason** is an indie developer obsessed with performance.
+Follow my journey on [X (Twitter)](https://x.com/giftwiseFei) or subscribe to the [RSS Feed](/feed.xml).

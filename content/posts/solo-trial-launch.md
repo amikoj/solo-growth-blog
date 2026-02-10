@@ -2,6 +2,7 @@
 title = "Solo Trial: Testing the Waters with a Gift Recommender"
 date = 2026-01-06T15:20:00Z
 tags = ["product-log", "solo-trial", "idea-validation"]
+categories = ["indie-hacking"]
 series = "solo-trial"
 description = "My first attempt at an indie product: A simple gift recommendation tool. From browsing Product Hunt to facing the reality of payment gateways."
 +++
@@ -75,5 +76,5 @@ This is just the beginning. Even if it fails, at least I'll be a developer who a
 
 ### About the Author
 
-**Amiko** is a software engineer turned indie hacker, learning to build and sell to the global market.
+**Mason** is a software engineer turned indie hacker, learning to build and sell to the global market.
 Follow my journey on [X (Twitter)](https://x.com/giftwiseFei) or subscribe to the [RSS Feed](/index.xml).

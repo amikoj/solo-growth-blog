@@ -2,7 +2,11 @@
   <div class="footer-row">
     <div class="footer-left">© {{ now.Year }} {{ .Site.Params.author }}</div>
     <div class="footer-right">
-      <a href="{{ "index.xml" | relURL }}">RSS</a>
+      {{ with .OutputFormats.Get "RSS" }}
+        <a href="{{ .RelPermalink }}">RSS</a>
+      {{ else }}
+        <a href="{{ "feed.xml" | relURL }}">RSS</a>
+      {{ end }}
     </div>
   </div>
   {{ with .Site.Params.beianText }}

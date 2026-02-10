@@ -1,9 +1,9 @@
 +++
-title = "About Amiko"
+title = "About Mason"
 date = 2026-02-09T00:00:00Z
 +++
 
-Hi, I'm **Amiko**. 👋
+Hi, I'm **Mason**. 👋
 
 I am a software engineer with **10+ years of experience**, specializing in **Frontend** and **Android** development.
 
