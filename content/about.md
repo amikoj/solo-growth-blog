@@ -1,6 +1,8 @@
 +++
 title = "About Mason"
 date = 2026-02-09T00:00:00Z
+type = "page"
+url = "/about"
 +++
 
 Hi, I'm **Mason**. 👋

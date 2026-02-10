@@ -2,6 +2,10 @@
   <div class="footer-row">
     <div class="footer-left">© {{ now.Year }} {{ .Site.Params.author }}</div>
     <div class="footer-right">
+      <a href="/privacy">Privacy</a>
+      <span class="divider">/</span>
+      <a href="/terms">Terms</a>
+      <span class="divider">/</span>
       {{ with .OutputFormats.Get "RSS" }}
         <a href="{{ .RelPermalink }}">RSS</a>
       {{ else }}

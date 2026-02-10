@@ -378,6 +378,8 @@ a:hover { color: #1d4ed8; text-decoration: underline; }
 }
 
 .footer-row { display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+.footer-right { display: flex; align-items: center; gap: 8px; }
+.divider { color: var(--border); }
 .beian { margin-top: 12px; font-size: 12px; }
 
 pre, code {
@@ -597,7 +599,8 @@ pre code {
   }
 
   #TableOfContents a:hover {
-    color: var(--link);
+    color: var(--accent);
+    padding-left: 4px;
     transform: translateX(2px);
   }
 
@@ -608,3 +611,58 @@ pre code {
     border-left: 1px solid #e2e8f0;
   }
 }
+
+/* Cookie Banner Styles */
+.cookie-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: var(--panel);
+  border-top: 1px solid var(--border);
+  padding: 16px;
+  box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.1);
+  transform: translateY(100%);
+  transition: transform 0.3s ease-in-out;
+  z-index: 1000;
+}
+
+.cookie-banner.show {
+  transform: translateY(0);
+}
+
+.cookie-content {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .cookie-content {
+    flex-direction: row;
+    text-align: left;
+    justify-content: space-between;
+  }
+}
+
+.cookie-content p {
+  margin: 0;
+  font-size: 14px;
+  color: var(--text);
+}
+
+.cookie-buttons {
+  display: flex;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.btn-sm {
+  padding: 6px 12px;
+  font-size: 14px;
+}
+
