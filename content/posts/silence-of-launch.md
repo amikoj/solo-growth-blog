@@ -14,11 +14,17 @@ For the past few weeks, I buried myself in code and tax forms. I thought that wa
 
 This week, I finally lifted my eyes from the editor to do the "simple" task of telling the world about **[Mindgift](https://www.getmindgift.com)**.
 
+![Deep Reasoning tool](/images/silence-001.png)
+
 The result? **Silence.**
 
 ## Battlefront 1: Reddit (The Karma Wall)
 
 My first target was Reddit. I know the rules: don't spam. So, I spent a week "warming up" my account. I lurked in `r/GiftIdeas` and `r/relationships`, answering questions earnestly. I thought I was building "Karma."
+
+
+
+![Reddit Karma Wall](/images/silence-002.png)
 
 When I finally gathered the courage to post a helpful introduction to my tool, the result was instant:
 **"Your post has been automatically removed."**
