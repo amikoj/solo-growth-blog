@@ -168,40 +168,59 @@ a:hover { color: #1d4ed8; text-decoration: underline; }
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 24px;
 }
 
 .post-item {
-  padding: 0;
-  border: none;
-  background: transparent;
+  padding: 24px;
+  border: 1px solid var(--border);
+  background: #fff;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.post-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+  border-color: var(--link);
 }
 
 .post-link {
-  font-size: 20px;
+  font-size: 22px;
   font-weight: 700;
   color: var(--text);
   line-height: 1.3;
+  display: block;
+  margin-bottom: 8px;
 }
-.post-link:hover { text-decoration: underline; color: var(--link); }
+.post-link:hover { text-decoration: none; color: var(--link); }
+.post-link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
 
 .post-meta {
-  margin-top: 6px;
+  margin-top: 0;
+  margin-bottom: 12px;
   color: var(--muted);
   font-size: 14px;
   display: flex;
   gap: 12px;
   align-items: center;
+  position: relative;
+  z-index: 2; /* Ensure links in meta are clickable */
 }
 
 .post-summary {
-  margin-top: 12px;
   font-size: 16px;
   color: #4a5568;
   line-height: 1.6;
 }
 
-.post-tags { display: inline-flex; gap: 8px; }
+.post-tags { display: inline-flex; gap: 8px; position: relative; z-index: 2; }
 .post-tags a {
   background: var(--panel);
   padding: 2px 8px;
@@ -209,8 +228,9 @@ a:hover { color: #1d4ed8; text-decoration: underline; }
   font-size: 12px;
   color: var(--muted);
   font-weight: 500;
+  transition: all 0.2s;
 }
-.post-tags a:hover { color: var(--text); background: #edf2f7; text-decoration: none; }
+.post-tags a:hover { color: var(--text); background: #e2e8f0; text-decoration: none; }
 
 .sep { opacity: 0.4; }
 
@@ -599,16 +619,13 @@ pre code {
   }
 
   #TableOfContents a:hover {
-    color: var(--accent);
-    padding-left: 4px;
+    color: var(--link);
     transform: translateX(2px);
   }
-
-  #TableOfContents ul ul {
-    padding-left: 12px;
-    margin-top: 6px;
-    margin-bottom: 6px;
-    border-left: 1px solid #e2e8f0;
+  
+  #TableOfContents .active {
+    color: var(--link);
+    font-weight: 600;
   }
 }
 
@@ -626,43 +643,97 @@ pre code {
   transition: transform 0.3s ease-in-out;
   z-index: 1000;
 }
-
 .cookie-banner.show {
   transform: translateY(0);
 }
-
 .cookie-content {
   max-width: 800px;
   margin: 0 auto;
   display: flex;
-  flex-direction: column;
-  gap: 16px;
+  justify-content: space-between;
   align-items: center;
-  text-align: center;
+  gap: 16px;
 }
-
-@media (min-width: 768px) {
-  .cookie-content {
-    flex-direction: row;
-    text-align: left;
-    justify-content: space-between;
-  }
-}
-
 .cookie-content p {
   margin: 0;
   font-size: 14px;
   color: var(--text);
 }
-
 .cookie-buttons {
   display: flex;
-  gap: 12px;
-  flex-shrink: 0;
+  gap: 8px;
 }
-
-.btn-sm {
+.btn {
   padding: 6px 12px;
+  border-radius: 4px;
   font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.2s;
+}
+.btn-primary {
+  background-color: var(--link);
+  color: white;
+}
+.btn-primary:hover {
+  background-color: #1d4ed8;
+}
+.btn-secondary {
+  background-color: transparent;
+  border-color: var(--border);
+  color: var(--text);
+}
+.btn-secondary:hover {
+  background-color: #edf2f7;
 }
 
+/* Pagination Styles */
+.pagination {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+  margin: 48px 0 0;
+  gap: 8px;
+}
+
+.page-item {
+  display: inline-block;
+}
+
+.page-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 32px;
+  padding: 0 8px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--muted);
+  background: var(--panel);
+  border: 1px solid var(--border);
+  transition: all 0.2s;
+}
+
+.page-link:hover {
+  color: var(--link);
+  border-color: var(--link);
+  background: #edf2f7;
+  text-decoration: none;
+}
+
+.page-item.active .page-link {
+  color: #fff;
+  background: var(--link);
+  border-color: var(--link);
+}
+
+.page-item.disabled .page-link {
+  color: #cbd5e0;
+  pointer-events: none;
+  background: transparent;
+  border-color: #e2e8f0;
+}
