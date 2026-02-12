@@ -4,7 +4,7 @@ date = 2026-01-06T15:20:00Z
 tags = ["product-log", "solo-trial", "idea-validation"]
 categories = ["indie-hacking"]
 series = "solo-trial"
-description = "My first attempt at an indie product: A simple gift recommendation tool. From browsing Product Hunt to facing the reality of payment gateways."
+description = "Mindgift is a gift recommendation tool that helps users find the perfect gift for someone special. It's a simple, fun, and shareable tool that people use to find the gift they need."
 +++
 
 > **Editor's Note**: This is the kickoff log for my "Solo Trial" project. It's an experiment to see if I can take a small, specific idea and turn it into a service that people actually use (and maybe pay for).

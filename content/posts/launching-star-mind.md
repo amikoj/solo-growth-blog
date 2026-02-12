@@ -4,7 +4,7 @@ date = 2026-02-12T00:20:01Z
 tags = ["product-log", "ai", "star-mind","product-management","seo","marketing"]
 categories = ["product-logs"]
 series = "solo-trial"
-description = "Introducing Mindgift, an AI-powered tool that helps you find the perfect gift by understanding the recipient's unique personality."
+description = "Star Mind is a review site for free SEO and marketing tools. It's a simple, fun, and shareable tool that people use to find the gift they need."
 +++
 
 Started another side project this week — [Star Mind](https://www.star-mind.top).
