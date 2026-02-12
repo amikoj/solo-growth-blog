@@ -1,6 +1,6 @@
 +++
 title = "Solo Drifting | WebMCP is Out. Should I Panic?"
-date = 2026-02-13T11:52:06Z
+date = 2026-02-12T09:52:06Z
 tags = ["webmcp", "ai", "ai-agent", "seo"]
 categories = ["tech-thoughts", "product-logs"]
 series = "solo-trial"
