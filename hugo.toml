@@ -1,6 +1,6 @@
 baseURL = "https://www.enjoytoday.cn/"
 languageCode = "en-us"
-title = "Enjoy Today"
+title = "Mason's Build Logs"
 enableRobotsTXT = true
 
 [pagination]
@@ -21,7 +21,7 @@ series = "series"
     baseName = "feed"
 
 [params]
-siteSubtitle = "Indie product logs by Mason"
+siteSubtitle = "One developer building in public. Sometimes it works, sometimes it doesn't."
 siteDescription = "A product log blog for indie builders. Learnings, releases, and experiments."
 author = "Mason"
 googleAnalyticsID = "G-0DZNVZWT2Q"
