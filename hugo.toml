@@ -26,8 +26,8 @@ siteDescription = "A product log blog for indie builders. Learnings, releases, a
 author = "Mason"
 googleAnalyticsID = "G-0DZNVZWT2Q"
 adsenseClient = "ca-pub-5905842540305144"
-beianText = "皖ICP备2025077420号-1"
-beianLink = "https://beian.miit.gov.cn/"
+beianText = ""
+beianLink = ""
 
 [related]
   includeNewer = true
