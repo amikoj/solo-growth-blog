@@ -29,6 +29,23 @@ adsenseClient = "ca-pub-5905842540305144"
 beianText = "皖ICP备2025077420号-1"
 beianLink = "https://beian.miit.gov.cn/"
 
+[related]
+  includeNewer = true
+  threshold = 80
+  toLower = false
+
+  [[related.indices]]
+    name = "tags"
+    weight = 100
+
+  [[related.indices]]
+    name = "categories"
+    weight = 70
+
+  [[related.indices]]
+    name = "date"
+    weight = 10
+
 [markup]
   [markup.goldmark.renderer]
   unsafe = true

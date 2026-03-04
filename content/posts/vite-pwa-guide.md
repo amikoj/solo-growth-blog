@@ -1,144 +1,193 @@
 +++
-title = "Making Your Vite App Offline-Ready with PWA"
-date = 2025-02-13T09:50:03Z
-tags = ["vite", "pwa", "vue", "web-development", "offline-first"]
-categories = ["tech-thoughts"]
-series = ["solo-trial", "tech"]
-description = "How to turn a standard Vite website into an installable, offline-capable app using vite-plugin-pwa. A practical guide."
+title = "Vite + PWA: Handling Offline Caching Correctly (2026)"
+date = 2026-02-24T12:00:00+08:00
+tags = ["vite", "pwa", "service-worker", "offline-first", "react", "vue"]
+categories = ["dev-tutorials"]
+series = "modern-web-dev"
+description = "A deep dive into configuring vite-plugin-pwa for reliable offline experiences. Learn about strategies like 'Stale-While-Revalidate', handling updates, and debugging Service Workers."
 +++
 
-I love the web, but I hate the "Dinosaur Game."
+Building a Progressive Web App (PWA) with Vite is deceptively simple. You install `vite-plugin-pwa`, add a few lines to `vite.config.ts`, and boom—your app is installable.
 
-You know the one—the little T-Rex that mocks you when your internet cuts out. For a recent project, I wanted to ensure my users never saw that dino. I wanted my web app to feel like a native app: installable on the home screen and fully functional even when the Wi-Fi is dead.
+But making it *truly* offline-capable? That's where the headaches begin.
 
-Enter **Progressive Web Apps (PWA)**.
+-   Why does my app still show old content after I deploy?
+-   Why does the offline page look broken?
+-   How do I cache API responses, not just static assets?
 
-While the concept of PWA has been around for years, the tooling has finally matured. If you're using Vite (and you should be), the `vite-plugin-pwa` makes this process almost trivial.
+In this guide, I'll walk you through the correct way to handle offline caching using `vite-plugin-pwa` and Google's Workbox library.
 
-Here is how I implemented it.
+## The "Update on Reload" Trap
 
-## 1. Installation
-
-First, we need the plugin. It's a dev dependency because it does its magic during the build process.
-
-```bash
-npm i vite-plugin-pwa -D
-```
-
-## 2. Basic Configuration
-
-In your `vite.config.ts`, import the plugin and add it to your `plugins` array.
-
-The key configuration here is `registerType: 'autoUpdate'`. This tells the browser to immediately update the Service Worker when a new version is deployed, rather than waiting for the user to close all tabs.
+By default, many tutorials suggest using `registerType: 'autoUpdate'`.
 
 ```typescript
 // vite.config.ts
+export default defineConfig({
+  plugins: [
+    VitePWA({
+      registerType: 'autoUpdate', // ⚠️ The lazy way
+      // ...
+    })
+  ]
+})
+```
+
+**The Problem:**
+When you deploy a new version, the Service Worker installs in the background. With `autoUpdate`, it immediately takes control. If your user is in the middle of a form or an important task, the page might reload unexpectedly, or assets might break because the old index.html is trying to fetch hashed JS files that no longer exist on the server.
+
+**The Solution:** Use `prompt` (Manual Update).
+
+This gives you control. You can show a "New content available" toast, and let the user click "Reload" when they are ready.
+
+## Step 1: Configuring `vite.config.ts`
+
+Here is a production-ready configuration.
+
+```typescript
 import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
 import { VitePWA } from 'vite-plugin-pwa'
 
 export default defineConfig({
   plugins: [
-    vue(),
     VitePWA({
-      registerType: "autoUpdate",
-      devOptions: {
-        enable: true, // Enable PWA in development mode for testing
-      },
-      // ... more config below
-    }),
-  ],
-})
-```
-
-## 3. The Manifest (Making it "Installable")
-
-To let users add your app to their home screen, you need a `manifest.webmanifest`. You *could* write this manually, but `vite-plugin-pwa` lets you define it right in the config.
-
-This metadata controls how your app looks on a smartphone home screen.
-
-```typescript
-VitePWA({
-  manifest: {
-    name: 'My Awesome App',
-    short_name: 'AwesomeApp',
-    description: 'A Vite PWA demo',
-    theme_color: '#fafafa',
-    icons: [
-      {
-        src: '/icons/icon-192x192.png',
-        sizes: '192x192',
-        type: 'image/png',
-      },
-      {
-        src: '/icons/icon-512x512.png',
-        sizes: '512x512',
-        type: 'image/png',
-      }
-    ],
-    // Optional: Add shortcuts for quick actions
-    shortcuts: [ 
-      {
-        name: "Open Home",
-        short_name: "Home",
-        url: "/",
-        icons: [{ src: "/favicon.ico", sizes: "36x36" }],
-      },
-    ]
-  },
-})
-```
-
-## 4. Offline Caching with Workbox
-
-The real power of PWA is the **Service Worker**. It sits between your app and the network, intercepting requests and serving cached files when offline.
-
-`vite-plugin-pwa` uses Google's Workbox under the hood. By default, it uses the `generateSW` strategy, which automatically caches your build assets (JS, CSS, HTML).
-
-If you want to cache external API calls or images, you can configure the `workbox` option:
-
-```typescript
-VitePWA({
-  workbox: {
-    runtimeCaching: [
-      {
-        // Cache Google Fonts
-        urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
-        handler: 'CacheFirst',
-        options: {
-          cacheName: 'google-fonts-cache',
-          expiration: {
-            maxEntries: 10,
-            maxAgeSeconds: 60 * 60 * 24 * 365 // <== 365 days
+      registerType: 'prompt', // 1. Use prompt instead of autoUpdate
+      includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
+      manifest: {
+        name: 'My Awesome App',
+        short_name: 'MyApp',
+        description: 'My Awesome App description',
+        theme_color: '#ffffff',
+        icons: [
+          {
+            src: 'pwa-192x192.png',
+            sizes: '192x192',
+            type: 'image/png'
           },
-          cacheableResponse: {
-            statuses: [0, 200]
+          {
+            src: 'pwa-512x512.png',
+            sizes: '512x512',
+            type: 'image/png'
           }
-        }
+        ]
       },
-      {
-        // Cache API responses (StaleWhileRevalidate is great for data)
-        urlPattern: /^https:\/\/api\.my-app\.com\/.*/i,
-        handler: 'StaleWhileRevalidate',
-        options: {
-          cacheName: 'api-cache',
-          expiration: {
-            maxEntries: 100,
-            maxAgeSeconds: 60 * 60 * 24 // 1 day
+      workbox: {
+        // 2. Caching Strategies
+        globPatterns: ['**/*.{js,css,html,ico,png,svg}'],
+        runtimeCaching: [
+          {
+            // Cache Google Fonts
+            urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'google-fonts-cache',
+              expiration: {
+                maxEntries: 10,
+                maxAgeSeconds: 60 * 60 * 24 * 365 // <== 365 days
+              },
+              cacheableResponse: {
+                statuses: [0, 200]
+              }
+            }
           },
-        }
+          {
+            // Cache API calls (StaleWhileRevalidate)
+            urlPattern: /^https:\/\/api\.myapp\.com\/.*\/i,
+            handler: 'StaleWhileRevalidate',
+            options: {
+              cacheName: 'api-cache',
+              expiration: {
+                maxEntries: 100,
+                maxAgeSeconds: 60 * 60 * 24 // <== 1 day
+              },
+              cacheableResponse: {
+                statuses: [0, 200]
+              }
+            }
+          }
+        ]
       }
-    ]
-  }
+    })
+  ]
 })
 ```
 
-## Why This Matters for Indie Hackers
+## Step 2: Handling the Update Prompt (React Example)
 
-As indie developers, we often ignore "reliability" in favor of features. But for a user, **reliability IS a feature**.
+You need to listen for the `needRefresh` event from the Service Worker. `vite-plugin-pwa` provides a virtual module for this.
 
-![Offline First](/images/pwa-001.png)
+Create a component `ReloadPrompt.tsx`:
 
-If your app loads instantly and works on a flaky subway connection, you've already beaten 90% of the competition. And with tools like `vite-plugin-pwa`, the implementation cost is practically zero.
+```tsx
+import { useRegisterSW } from 'virtual:pwa-register/react'
 
-No more dinosaurs. Just apps that work.
+function ReloadPrompt() {
+  const {
+    offlineReady: [offlineReady, setOfflineReady],
+    needRefresh: [needRefresh, setNeedRefresh],
+    updateServiceWorker,
+  } = useRegisterSW({
+    onRegistered(r) {
+      console.log('SW Registered: ' + r)
+    },
+    onRegisterError(error) {
+      console.log('SW registration error', error)
+    },
+  })
+
+  const close = () => {
+    setOfflineReady(false)
+    setNeedRefresh(false)
+  }
+
+  return (
+    <div className="ReloadPrompt-container">
+      { (offlineReady || needRefresh) && (
+        <div className="ReloadPrompt-toast">
+          <div className="ReloadPrompt-message">
+            { offlineReady
+              ? <span>App ready to work offline</span>
+              : <span>New content available, click on reload button to update.</span>
+            }
+          </div>
+          { needRefresh && (
+            <button className="ReloadPrompt-toast-button" onClick={() => updateServiceWorker(true)}>
+              Reload
+            </button>
+          ) }
+          <button className="ReloadPrompt-toast-button" onClick={() => close()}>
+            Close
+          </button>
+        </div>
+      )}
+    </div>
+  )
+}
+
+export default ReloadPrompt
+```
+
+## Step 3: Debugging Service Workers
+
+When developing, Service Workers can be tricky because they persist.
+
+1.  **Enable in Dev**: In `vite.config.ts`, set `devOptions: { enabled: true }`.
+2.  **Chrome DevTools**: Go to **Application** > **Service Workers**.
+    -   Check "Update on reload" to force updates during development.
+    -   Click "Unregister" if things get stuck.
+3.  **Storage**: Go to **Application** > **Storage** and click "Clear site data" to nuke everything (Cache Storage, IndexedDB, Service Workers) and start fresh.
+
+## Common Pitfalls
+
+### 1. Caching Too Much
+Don't cache `/api/user/profile` or sensitive data unless you know what you're doing. Use `NetworkFirst` for critical data that changes often.
+
+### 2. The `start_url`
+Ensure your `manifest.json` (inside the `VitePWA` config) has a valid `start_url`, usually `/` or `/index.html`. If this is wrong, your installed app might show a 404.
+
+### 3. Missing Icons
+PWA installability requires specific icon sizes (usually 192x192 and 512x512). Use a tool like [PWA Asset Generator](https://github.com/onderceylan/pwa-asset-generator) to create them automatically.
+
+## Conclusion
+
+`vite-plugin-pwa` is a wrapper around Workbox, which is the industry standard for Service Workers. By moving from `autoUpdate` to `prompt` and configuring explicit runtime caching strategies, you transform your app from "technically a PWA" to a robust, offline-capable product.

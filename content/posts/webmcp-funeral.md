@@ -1,5 +1,5 @@
 +++
-title = "Solo Drifting | WebMCP is Out. Should I Panic?"
+title = "WebMCP Explained: Impact on Solo Developers & SEO Strategy"
 date = 2026-02-12T09:52:06Z
 tags = ["webmcp", "ai", "ai-agent", "seo"]
 categories = ["tech-thoughts", "product-logs"]

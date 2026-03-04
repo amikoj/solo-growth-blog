@@ -1,131 +1,137 @@
 +++
-title = "Chrome Extension 101: Building Your First Manifest V3 Plugin"
-date = 2022-12-10T00:00:00Z
-tags = ["technical-guide", "chrome-extension", "javascript"]
-categories = ["development"]
-series = "tech-stack"
-description = "A step-by-step guide to creating a simple Chrome Extension using Manifest V3. Perfect for beginners looking to build micro-SaaS tools."
+title = "Chrome Extension V3: Building Your First Plugin (2026 Update)"
+date = 2026-02-10T00:00:00Z
+tags = ["chrome-extension", "javascript", "manifest-v3", "web-development"]
+categories = ["dev-tutorials"]
+series = "modern-web-dev"
+description = "A step-by-step guide to creating a Chrome Extension using Manifest V3. Covers service workers, popup interaction, and debugging."
 +++
 
-> **Editor's Note**: Chrome Extensions are a powerful playground for indie developers. They solve specific problems right where users spend most of their time: the browser. This guide breaks down the basics of creating a "Hello World" extension using the latest Manifest V3 standard.
+Chrome Extensions are a powerful playground for developers. They solve specific problems right where users spend most of their time: the browser.
 
-## Context
+However, the ecosystem has shifted. Chrome now mandates **Manifest V3**, which introduces significant changes (like replacing background pages with [service workers]({{< ref "chrome-process-architecture.md" >}})).
 
-Many successful micro-SaaS products started as simple browser extensions. Whether it's an ad blocker, a productivity timer, or a grammar checker, the barrier to entry is surprisingly low.
+In this guide, we'll build a simple **"Focus Mode"** extension that hides distracting elements on a page.
 
-However, the ecosystem has shifted. Chrome now mandates **Manifest V3**, while Firefox still largely supports V2. For developers targeting the largest market share, understanding V3 is non-negotiable.
+## Project Structure
 
-## The Challenge
+A basic Chrome extension is just HTML, CSS, and JavaScript. Here is the file structure we will build:
 
-For a beginner, the official documentation can be overwhelming. Files, permissions, background scripts, popups... where do you actually start?
+```text
+my-extension/
+├── manifest.json      # The configuration file
+├── popup.html         # The UI when you click the extension icon
+├── popup.js           # Logic for the popup
+├── content.js         # Script that runs on web pages
+└── icons/
+    └── icon.png
+```
 
-The goal of this log is to strip away the complexity and build a minimal, functional extension: a simple **Ad Filter Configuration** interface.
+## Step 1: The Blueprint (`manifest.json`)
 
-## The Solution
-
-A basic Chrome extension is just HTML, CSS, and JavaScript, glued together by a `manifest.json` file.
-
-### Step 1: The Blueprint (`manifest.json`)
-
-Create a folder for your project and add a `manifest.json` file. This tells Chrome what your extension does.
+Create a folder for your project and add a `manifest.json`. This tells Chrome what your extension does and what permissions it needs.
 
 ```json
 {
-  "name": "Ad Filter Basic",
-  "version": "0.0.1",
   "manifest_version": 3,
-  "description": "A simple example to filter common web ads.",
+  "name": "Simple Focus Mode",
+  "version": "1.0",
+  "description": "Hides distracting elements on the current page.",
+  "permissions": ["activeTab", "scripting"],
   "action": {
-    "default_popup": "popup.html"
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/icon.png",
+      "48": "icons/icon.png",
+      "128": "icons/icon.png"
+    }
   },
   "icons": {
     "16": "icons/icon.png",
-    "32": "icons/icon.png",
     "48": "icons/icon.png",
     "128": "icons/icon.png"
   }
 }
 ```
 
-*   **manifest_version**: Must be `3` for new Chrome extensions.
-*   **action**: Defines what happens when you click the extension icon (in this case, opening `popup.html`).
+**Key Concepts:**
+*   **`manifest_version: 3`**: Mandatory for modern extensions.
+*   **`permissions`**: We ask for `activeTab` to manipulate the current tab and `scripting` to inject CSS/JS.
+*   **`action`**: Defines the popup behavior.
 
-### Step 2: The Interface (`popup.html`)
+## Step 2: The Popup UI (`popup.html`)
 
-Create a `popup.html` file. This is the small window that appears when users click your extension icon.
-
-**Pro Tip**: Always use standard HTML structure with `<meta charset="UTF-8">` to avoid character encoding issues (like garbled Chinese characters).
+This is the interface users see when clicking the extension icon.
 
 ```html
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Ad Filter Config</title>
-    <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-        .container {
-            min-width: 300px;
-            padding: 15px 20px;
-        }
-        h3 { margin-top: 0; color: #333; }
-        .settings {
-            margin-top: 20px;
-            font-size: 14px;
-        }
-        .set {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-        /* Custom Checkbox Style could go here */
-    </style>
+  <style>
+    body { width: 200px; padding: 10px; font-family: sans-serif; }
+    button { width: 100%; padding: 10px; background: #2563eb; color: white; border: none; cursor: pointer; }
+    button:hover { background: #1d4ed8; }
+  </style>
 </head>
 <body>
-    <div class="container">
-        <h3>Filter Settings</h3>
-        <div class="settings">
-            <div class="set">
-                <span>Filter Google Adsense</span>
-                <input type="checkbox" checked>
-            </div>
-            <div class="set">
-                <span>Filter Baidu Ads</span>
-                <input type="checkbox">
-            </div>
-        </div>
-    </div>
+  <h3>Focus Mode</h3>
+  <button id="toggleBtn">Hide Distractions</button>
+  <script src="popup.js"></script>
 </body>
 </html>
 ```
 
-### Step 3: Icons
+## Step 3: The Logic (`popup.js`)
 
-Create an `icons` folder and add a PNG file named `icon.png` (you can resize it to 16, 32, 48, 128px versions for best results, but one file works for testing).
+Here we handle the button click. We'll use the `chrome.scripting` API to execute code in the current tab.
 
-### Step 4: Loading the Extension
+```javascript
+document.getElementById("toggleBtn").addEventListener("click", async () => {
+  // Get the current active tab
+  const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
 
-You don't need to pay $5 to the Web Store just to test your code.
+  // Execute the function inside the current tab
+  chrome.scripting.executeScript({
+    target: { tabId: tab.id },
+    function: toggleDistractions,
+  });
+});
 
-1.  Open Chrome and go to `chrome://extensions/`.
-2.  Toggle **Developer mode** in the top right corner.
+// This function is serialized and executed in the page context
+function toggleDistractions() {
+  const selectors = [
+    'aside', 
+    '.ads', 
+    '.sidebar', 
+    '#comments'
+  ];
+  
+  selectors.forEach(selector => {
+    const elements = document.querySelectorAll(selector);
+    elements.forEach(el => {
+      el.style.display = el.style.display === 'none' ? '' : 'none';
+    });
+  });
+  
+  alert("Distractions toggled!");
+}
+```
+
+## Step 4: Loading into Chrome
+
+1.  Open Chrome and go to `chrome://extensions`.
+2.  Enable **Developer mode** (top right toggle).
 3.  Click **Load unpacked**.
 4.  Select your project folder.
 
-Voila! Your extension icon should appear in the browser toolbar. Click it, and you'll see your "Ad Filter" popup.
+## Debugging Tips
 
-## Results & Learnings
+Debugging extensions can be tricky because code runs in different contexts.
 
-*   **Simplicity**: You don't need a complex build step (Webpack/Vite) for simple extensions.
-*   **Manifest V3**: It enforces better security and performance practices, though the migration for complex extensions can be tricky.
-*   **Distribution**: You can pack the extension into a `.crx` file locally for sharing, or upload the zip to the Chrome Web Store for public release.
+*   **Popup Logic**: Right-click the extension icon and select "Inspect Popup". This opens a DevTools window specifically for `popup.html`.
+*   **Content Scripts**: These run in the web page context. Open the normal DevTools (F12) on the web page to see `console.log` output from `content.js` or injected scripts.
+*   **Service Workers (Background)**: In `chrome://extensions`, click the "service worker" link inside your extension card to open its console.
 
-This simple structure is the foundation for almost every browser tool you use. Next steps would be adding JavaScript to handle the checkbox logic and actually injecting CSS to hide those ads!
+## Conclusion
 
----
-
-### About the Author
-
-**Mason** is an indie developer exploring the micro-SaaS ecosystem.
-Follow my journey on [X (Twitter)](https://x.com/giftwiseFei) or subscribe to the [RSS Feed](/feed.xml).
+You've just built a functional Manifest V3 extension! From here, you can explore more advanced APIs like `storage` to save user preferences, or `alarms` to run periodic tasks.

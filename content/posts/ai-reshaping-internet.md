@@ -2,7 +2,7 @@
 title = "The AI Silence: Why We Must Keep Writing"
 date = 2025-11-18T16:01:23Z
 tags = ["ai", "content-creation", "internet-culture"]
-categories = ["thoughts"]
+categories = ["tech-thoughts"]
 series = "personal-notes"
 description = "When original content goes silent and the internet floods with AI slop, is there still a place for human writing? Yes, and it's more important than ever."
 +++

@@ -2,7 +2,7 @@
 title = "Mindgift: Decoding the Art of Gift Giving with AI"
 date = 2026-01-07T15:20:00Z
 tags = ["product-log", "ai", "mindgift"]
-categories = ["product", "indie-hacking"]
+categories = ["product-logs", "indie-hacking"]
 series = "solo-trial"
 description = "Introducing Mindgift, an AI-powered tool that helps you find the perfect gift by understanding the recipient's unique personality."
 +++

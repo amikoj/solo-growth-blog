@@ -2,7 +2,7 @@
 title = "The 'One Amazon' Fallacy: Engineering Global Affiliate Traffic"
 date = 2026-02-01T10:00:00Z
 tags = ["engineering", "monetization", "amazon-affiliate", "vercel", "nextjs"]
-categories = ["dev-log"]
+categories = ["indie-hacking"]
 series = "solo-trial"
 description = "I realized that sending a German user to amazon.com is the fastest way to kill a conversion. Here's how I fixed it."
 +++

@@ -26,10 +26,10 @@ My goal is to ship small, useful products and enjoy the process of creation.
 
 If you are also an indie builder or interested in my journey, feel free to follow along!
 
+- **Email**: [hfcaidev@gmail.com](mailto:hfcaidev@gmail.com)
 - **X (Twitter)**: [@giftwiseFei](https://x.com/giftwiseFei)
 - **YouTube**: [Subscribe to my channel](https://youtube.com/@mindgift-r4f)
 
-#### WeChat Official Account (微信公众号)
+#### WeChat Official Account
 Scan the QR code below to follow my updates on WeChat:
-
 <img src="/images/wechat.png" alt="胖蔡出海实战" style="width: 340px; max-width: 100%; border-radius: 8px; border: 1px solid #eee;">

@@ -38,6 +38,22 @@
       </script>
       {{ end }}
     </div>
+
+    {{ $related := .Site.RegularPages.Related . | first 3 }}
+    {{ with $related }}
+    <div class="related-posts">
+      <h3 class="related-title">Read Next</h3>
+      <ul class="related-list">
+        {{ range . }}
+        <li class="related-item">
+          <a href="{{ .RelPermalink }}" class="related-link">{{ .Title }}</a>
+          <time class="related-date">{{ .Date.Format "Jan 02" }}</time>
+        </li>
+        {{ end }}
+      </ul>
+    </div>
+    {{ end }}
+
   </article>
 {{ end }}
 
