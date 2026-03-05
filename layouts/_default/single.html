@@ -1,9 +1,12 @@
 {{ define "main" }}
   <article class="page">
     <header class="post-header">
+      {{ partial "breadcrumbs.html" . }}
       <h1 class="page-title">{{ .Title }}</h1>
       <div class="post-meta">
         <time datetime="{{ .Date }}">{{ .Date.Format "2006-01-02" }}</time>
+        <span class="sep">·</span>
+        <span class="reading-time">{{ .ReadingTime }} min read</span>
         {{ with .Params.tags }}
           <span class="post-tags">
             {{ range $i, $t := . }}
