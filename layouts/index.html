@@ -75,18 +75,18 @@
           <h2 class="section-title">Top Reads</h2>
           {{ $popularSource := where $posts "Params.views" "gt" 0 }}
           {{ $popular := first 8 (sort $popularSource "Params.views" "desc") }}
-          {{ if gt (len $popular) 0 }}
-            <ul class="most-read-list">
-              {{ range $popular }}
-                <li class="most-read-item">
-                  <a class="most-read-link" href="{{ .RelPermalink }}">{{ .Title }}</a>
-                  <span class="most-read-count">{{ .Params.views }}</span>
-                </li>
-              {{ end }}
-            </ul>
-          {{ else }}
-            <div class="most-read-empty">No reading data</div>
+          {{ $topReads := $popular }}
+          {{ if eq (len $topReads) 0 }}
+            {{ $topReads = first 8 $posts }}
           {{ end }}
+          <ul class="most-read-list">
+            {{ range $topReads }}
+              <li class="most-read-item">
+                <a class="most-read-link" href="{{ .RelPermalink }}">{{ .Title }}</a>
+                <span class="most-read-count">{{ .Params.views | default 0 }}</span>
+              </li>
+            {{ end }}
+          </ul>
         </div>
       </aside>
     </div>

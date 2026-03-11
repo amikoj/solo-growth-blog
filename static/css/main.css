@@ -368,6 +368,66 @@ a:hover {
   opacity: 0.8;
 }
 
+.post-share {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+
+.post-share-label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+
+.post-share-links {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.post-share-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: var(--text);
+  width: 36px;
+  height: 36px;
+}
+
+.post-share-link svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
+.post-share-link:hover {
+  border-color: var(--link);
+  color: var(--link);
+  text-decoration: none;
+}
+
+.post-share-text {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
 .content {
   font-size: 17px;
   line-height: 1.8;
