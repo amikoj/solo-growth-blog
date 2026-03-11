@@ -7,35 +7,164 @@
       {{ end }}
     </div>
 
-    <div class="posts-section">
-      <h2 class="section-title">Latest Articles</h2>
-      <ul class="post-list">
-        {{ $paginator := .Paginate (where .Site.RegularPages "Section" "posts") }}
-        {{ range $paginator.Pages }}
-        <li class="post-item">
-          <a class="post-link" href="{{ .RelPermalink }}">{{ .Title }}</a>
-          <div class="post-meta">
-            <time datetime="{{ .Date }}">{{ .Date.Format "2006-01-02" }}</time>
-            {{ with .Params.tags }}
-            <span class="sep">·</span>
-            <span class="post-tags">
-              {{ range first 3 . }}
-              <a href="{{ (printf "/tags/%s/" (. | urlize)) | relURL }}">#{{ . }}</a>
+    <div class="home-layout">
+      {{ $posts := where .Site.RegularPages "Section" "posts" }}
+      <div class="posts-section">
+        <h2 class="section-title">Latest Articles</h2>
+        <ul class="post-list">
+          {{ $paginator := .Paginate $posts }}
+          {{ range $paginator.Pages }}
+          <li class="post-item">
+            <a class="post-link" href="{{ .RelPermalink }}">{{ .Title }}</a>
+            <div class="post-meta">
+              <span class="meta-item">
+                <span class="meta-icon">📅</span>
+                <time datetime="{{ .Date }}">{{ .Date.Format "2006-01-02" }}</time>
+              </span>
+              {{ $author := .Params.author | default $.Site.Params.author }}
+              {{ with $author }}
+                <span class="sep">·</span>
+                <span class="meta-item">
+                  <span class="meta-icon">👤</span>
+                  <span class="post-author">{{ . }}</span>
+                </span>
               {{ end }}
-            </span>
-            {{ end }}
-          </div>
-          <div class="post-summary">
-            {{ if .Description }}
-              {{ .Description }}
-            {{ else }}
-              {{ .Summary | truncate 140 }}
-            {{ end }}
-          </div>
-        </li>
+              <span class="sep">·</span>
+              <span class="meta-item">
+                <span class="meta-icon">👁️</span>
+                <span class="post-views" data-view-key="{{ .RelPermalink }}" data-view-base="{{ .Params.views | default 0 }}">{{ .Params.views | default 0 }} views</span>
+              </span>
+              {{ with .Params.tags }}
+              <span class="sep">·</span>
+              <span class="post-tags">
+                {{ range first 3 . }}
+                <a href="{{ (printf "/tags/%s/" (. | urlize)) | relURL }}">#{{ . }}</a>
+                {{ end }}
+              </span>
+              {{ end }}
+            </div>
+            <div class="post-summary">
+              {{ if .Description }}
+                {{ .Description }}
+              {{ else }}
+                {{ .Summary | truncate 140 }}
+              {{ end }}
+            </div>
+          </li>
+          {{ end }}
+        </ul>
+        {{ template "_internal/pagination.html" . }}
+      </div>
+
+      <aside class="home-sidebar">
+        {{ $countsMap := dict }}
+        {{ range $posts.GroupByDate "2006-01-02" }}
+          {{ $countsMap = merge $countsMap (dict .Key (len .Pages)) }}
         {{ end }}
-      </ul>
-      {{ template "_internal/pagination.html" . }}
+        <div class="update-calendar" id="update-calendar" data-counts='{{ $countsMap | jsonify }}'>
+          <h2 class="section-title">Update Calendar</h2>
+          <div class="calendar-header">
+            <button class="calendar-button calendar-prev" type="button" aria-label="Previous month">&#8592;</button>
+            <span class="calendar-month"></span>
+            <button class="calendar-button calendar-next" type="button" aria-label="Next month">&#8594;</button>
+          </div>
+          <div class="calendar-grid"></div>
+        </div>
+
+        <div class="most-read">
+          <h2 class="section-title">Top Reads</h2>
+          {{ $popularSource := where $posts "Params.views" "gt" 0 }}
+          {{ $popular := first 8 (sort $popularSource "Params.views" "desc") }}
+          {{ if gt (len $popular) 0 }}
+            <ul class="most-read-list">
+              {{ range $popular }}
+                <li class="most-read-item">
+                  <a class="most-read-link" href="{{ .RelPermalink }}">{{ .Title }}</a>
+                  <span class="most-read-count">{{ .Params.views }}</span>
+                </li>
+              {{ end }}
+            </ul>
+          {{ else }}
+            <div class="most-read-empty">No reading data</div>
+          {{ end }}
+        </div>
+      </aside>
     </div>
   </section>
+  <script>
+    (function () {
+      const calendar = document.getElementById('update-calendar');
+      if (!calendar) return;
+      const counts = JSON.parse(calendar.dataset.counts || '{}');
+      const monthLabel = calendar.querySelector('.calendar-month');
+      const grid = calendar.querySelector('.calendar-grid');
+      const prevBtn = calendar.querySelector('.calendar-prev');
+      const nextBtn = calendar.querySelector('.calendar-next');
+      let current = new Date();
+      current = new Date(current.getFullYear(), current.getMonth(), 1);
+
+      const pad = (num) => String(num).padStart(2, '0');
+      const formatKey = (date) => `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}`;
+      const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+      const render = () => {
+        monthLabel.textContent = current.toLocaleString('en-US', { month: 'long', year: 'numeric' });
+        grid.innerHTML = '';
+        weekdays.forEach((day) => {
+          const el = document.createElement('span');
+          el.className = 'calendar-weekday';
+          el.textContent = day;
+          grid.appendChild(el);
+        });
+        const firstDay = new Date(current.getFullYear(), current.getMonth(), 1);
+        const lastDay = new Date(current.getFullYear(), current.getMonth() + 1, 0);
+        const offset = firstDay.getDay();
+        const total = offset + lastDay.getDate();
+        const rows = Math.ceil(total / 7);
+        const cells = rows * 7;
+        for (let i = 0; i < offset; i += 1) {
+          const empty = document.createElement('div');
+          empty.className = 'calendar-cell is-empty';
+          grid.appendChild(empty);
+        }
+        for (let day = 1; day <= lastDay.getDate(); day += 1) {
+          const date = new Date(current.getFullYear(), current.getMonth(), day);
+          const key = formatKey(date);
+          const count = counts[key] || 0;
+          const cell = document.createElement('div');
+          cell.className = `calendar-cell${count > 0 ? ' has-updates' : ''}`;
+          const daySpan = document.createElement('span');
+          daySpan.className = 'calendar-day';
+          daySpan.textContent = day;
+          cell.appendChild(daySpan);
+          if (count > 0) {
+            const countSpan = document.createElement('span');
+            countSpan.className = 'calendar-count';
+            countSpan.textContent = count;
+            cell.appendChild(countSpan);
+          }
+          grid.appendChild(cell);
+        }
+        for (let i = offset + lastDay.getDate(); i < cells; i += 1) {
+          const empty = document.createElement('div');
+          empty.className = 'calendar-cell is-empty';
+          grid.appendChild(empty);
+        }
+      };
+
+      prevBtn.addEventListener('click', () => {
+        current.setMonth(current.getMonth() - 1);
+        current = new Date(current.getFullYear(), current.getMonth(), 1);
+        render();
+      });
+
+      nextBtn.addEventListener('click', () => {
+        current.setMonth(current.getMonth() + 1);
+        current = new Date(current.getFullYear(), current.getMonth(), 1);
+        render();
+      });
+
+      render();
+    })();
+  </script>
 {{ end }}

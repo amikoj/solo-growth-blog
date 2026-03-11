@@ -46,4 +46,57 @@ document.addEventListener('DOMContentLoaded', () => {
         if (mobileSidebarClose) mobileSidebarClose.addEventListener('click', closeMenu);
         mobileSidebarOverlay.addEventListener('click', closeMenu);
     }
+
+    const viewElements = Array.from(document.querySelectorAll('[data-view-key]'));
+    if (viewElements.length) {
+        const setView = (el, value) => {
+            el.textContent = `${value} views`;
+        };
+        viewElements.forEach((el) => {
+            const base = Number(el.dataset.viewBase || 0);
+            setView(el, base);
+        });
+        const pageViewEl = document.querySelector('[data-view-page="true"][data-view-key]');
+        const keys = Array.from(new Set(viewElements.map((el) => el.dataset.viewKey))).filter(Boolean);
+        const fetchJson = async (url, options) => {
+            try {
+                const res = await fetch(url, options);
+                if (!res.ok) return null;
+                return await res.json();
+            } catch (e) {
+                return null;
+            }
+        };
+        const updateViews = async () => {
+            let counts = {};
+            if (pageViewEl) {
+                const pageKey = pageViewEl.dataset.viewKey;
+                const data = await fetchJson('/api/views', {
+                    method: 'POST',
+                    headers: { 'content-type': 'application/json' },
+                    body: JSON.stringify({ key: pageKey })
+                });
+                if (data && typeof data.count === 'number') {
+                    counts[pageKey] = data.count;
+                }
+            }
+            if (keys.length) {
+                const batch = await fetchJson('/api/views/batch', {
+                    method: 'POST',
+                    headers: { 'content-type': 'application/json' },
+                    body: JSON.stringify({ keys })
+                });
+                if (batch && batch.counts) {
+                    counts = { ...batch.counts, ...counts };
+                }
+            }
+            viewElements.forEach((el) => {
+                const key = el.dataset.viewKey;
+                const base = Number(el.dataset.viewBase || 0);
+                const value = Math.max(base, Number(counts[key] || 0));
+                setView(el, value);
+            });
+        };
+        updateViews();
+    }
 });

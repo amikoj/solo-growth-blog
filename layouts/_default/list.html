@@ -11,7 +11,23 @@
         <li class="post-item">
           <a class="post-link" href="{{ .RelPermalink }}">{{ .Title }}</a>
           <div class="post-meta">
-            <time datetime="{{ .Date }}">{{ .Date.Format "2006-01-02" }}</time>
+            <span class="meta-item">
+              <span class="meta-icon">📅</span>
+              <time datetime="{{ .Date }}">{{ .Date.Format "2006-01-02" }}</time>
+            </span>
+            {{ $author := .Params.author | default $.Site.Params.author }}
+            {{ with $author }}
+              <span class="sep">·</span>
+              <span class="meta-item">
+                <span class="meta-icon">👤</span>
+                <span class="post-author">{{ . }}</span>
+              </span>
+            {{ end }}
+            <span class="sep">·</span>
+            <span class="meta-item">
+              <span class="meta-icon">👁️</span>
+              <span class="post-views" data-view-key="{{ .RelPermalink }}" data-view-base="{{ .Params.views | default 0 }}">{{ .Params.views | default 0 }} views</span>
+            </span>
             {{ with .Params.tags }}
               <span class="post-tags">
                 {{ range $i, $t := . }}

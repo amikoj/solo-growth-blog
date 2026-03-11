@@ -9,6 +9,8 @@
         <time datetime="{{ .Date }}">{{ .Date.Format "2006-01-02" }}</time>
         <span class="sep">·</span>
         <span class="reading-time">{{ .ReadingTime }} min read</span>
+        <span class="sep">·</span>
+        <span class="post-views" data-view-key="{{ .RelPermalink }}" data-view-base="{{ .Params.views | default 0 }}" data-view-page="true">{{ .Params.views | default 0 }} views</span>
         {{ with .Params.tags }}
           <span class="post-tags">
             {{ range $i, $t := . }}
@@ -33,12 +35,34 @@
         </div>
       </aside>
       <script>
-        // Add title attribute to TOC links for hover effect
         document.addEventListener('DOMContentLoaded', function() {
-          const tocLinks = document.querySelectorAll('#TableOfContents a');
-          tocLinks.forEach(link => {
+          const toc = document.getElementById('TableOfContents');
+          if (!toc) return;
+          const links = Array.from(toc.querySelectorAll('a'));
+          const headings = links
+            .map(link => document.getElementById(decodeURIComponent(link.getAttribute('href') || '').replace('#', '')))
+            .filter(Boolean);
+          links.forEach(link => {
             link.title = link.innerText;
           });
+          if (!headings.length) return;
+          const onScroll = () => {
+            let activeIndex = 0;
+            const offset = 120;
+            for (let i = 0; i < headings.length; i += 1) {
+              if (headings[i].getBoundingClientRect().top <= offset) {
+                activeIndex = i;
+              } else {
+                break;
+              }
+            }
+            links.forEach(link => link.classList.remove('is-active'));
+            if (links[activeIndex]) {
+              links[activeIndex].classList.add('is-active');
+            }
+          };
+          onScroll();
+          window.addEventListener('scroll', onScroll, { passive: true });
         });
       </script>
       {{ end }}

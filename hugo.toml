@@ -68,6 +68,9 @@ beianLink = ""
   unsafe = true
   [markup.highlight]
   noClasses = true
+  [markup.tableOfContents]
+  startLevel = 2
+  endLevel = 4
 
 [menu]
   [[menu.main]]

@@ -1,0 +1,5 @@
+name = "solo-growth-blog"
+main = "workers/views.js"
+compatibility_date = "2025-03-11"
+
+kv_namespaces = [{ binding = "VIEWS", id = "" }]
