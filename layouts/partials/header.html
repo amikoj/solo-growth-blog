@@ -1,19 +1,88 @@
 <header class="site-header">
-  <div class="brand">
-    <a class="brand-title" href="{{ "/" | relURL }}">
-      <img src="{{ "images/logo.svg" | relURL }}" alt="Logo" class="site-logo" width="32" height="32">
-      {{ .Site.Title }}
-    </a>
-    {{ with .Site.Params.siteSubtitle }}
-      <div class="brand-subtitle">{{ . }}</div>
-    {{ end }}
-  </div>
-  {{ with .Site.Menus.main }}
-    <nav class="nav">
-      {{ range . }}
-        <a class="nav-link" href="{{ .URL | relURL }}">{{ .Name }}</a>
+  <div class="header-inner">
+    <div class="brand">
+      <a class="brand-title" href="{{ "/" | relURL }}">
+        <img src="{{ "images/logo.svg" | relURL }}" alt="Logo" class="site-logo" width="32" height="32">
+        <span class="brand-text">{{ .Site.Title }}</span>
+      </a>
+    </div>
+
+    <nav class="nav-desktop">
+      {{ range .Site.Menus.main }}
+        {{ if .HasChildren }}
+          <div class="nav-item dropdown">
+            <button class="nav-link dropdown-toggle" aria-expanded="false">
+              {{ .Name }}
+              <svg class="chevron-down" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </button>
+            <div class="dropdown-menu">
+              {{ range .Children }}
+                <a class="dropdown-item" href="{{ .URL | relURL }}">{{ .Name }}</a>
+              {{ end }}
+            </div>
+          </div>
+        {{ else }}
+          <a class="nav-link" href="{{ .URL | relURL }}">{{ .Name }}</a>
+        {{ end }}
       {{ end }}
     </nav>
-  {{ end }}
+
+    <div class="header-actions">
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+        <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+      </button>
+
+      <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle menu">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </div>
 </header>
 
+<div class="mobile-sidebar" id="mobile-sidebar">
+  <div class="mobile-sidebar-header">
+      <span class="mobile-sidebar-title">Menu</span>
+      <button class="mobile-sidebar-close" id="mobile-sidebar-close" aria-label="Close menu">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+    <nav class="mobile-nav">
+      {{ range .Site.Menus.main }}
+        {{ if .HasChildren }}
+          <div class="mobile-nav-group">
+            <span class="mobile-nav-header">{{ .Name }}</span>
+            <div class="mobile-nav-children">
+              {{ range .Children }}
+                <a class="mobile-nav-link" href="{{ .URL | relURL }}">{{ .Name }}</a>
+              {{ end }}
+            </div>
+          </div>
+        {{ else }}
+          <a class="mobile-nav-link" href="{{ .URL | relURL }}">{{ .Name }}</a>
+        {{ end }}
+      {{ end }}
+    </nav>
+  </div>
+  <div class="mobile-sidebar-overlay" id="mobile-sidebar-overlay"></div>

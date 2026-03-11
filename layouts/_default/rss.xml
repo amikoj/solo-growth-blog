@@ -3,7 +3,7 @@
   {{- $pages = where .Site.RegularPages "Section" "posts" -}}
 {{- end -}}
 {{- $pages = $pages.ByDate.Reverse -}}
-{{- $limit := 20 -}}
+{{- $limit := 50 -}}
 {{- $rss := .OutputFormats.Get "RSS" -}}
 {{ printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
@@ -13,6 +13,7 @@
     <description>{{ with .Description }}{{ . }}{{ else }}Recent content in {{ .Title }} on {{ .Site.Title }}{{ end }}</description>
     <generator>Hugo</generator>
     <language>{{ .Site.Language.LanguageCode }}</language>
+    <lastBuildDate>{{ now.Format "Mon, 02 Jan 2006 15:04:05 -0700" }}</lastBuildDate>
     {{ with $rss }}
       <atom:link href="{{ .Permalink }}" rel="self" type="{{ .MediaType.Type }}" />
     {{ end }}

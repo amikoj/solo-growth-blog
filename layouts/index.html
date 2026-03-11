@@ -7,38 +7,11 @@
       {{ end }}
     </div>
 
-    {{ if .Site.Data.projects }}
-    <div class="projects-section">
-      <h2 class="section-title">Shipping</h2>
-      <div class="project-grid">
-        {{ range .Site.Data.projects }}
-        <a href="{{ .url }}" class="project-card" target="_blank" rel="noopener">
-          <div class="project-icon">
-            {{ if or (strings.HasPrefix .icon "http") (strings.HasPrefix .icon "/") }}
-              <img src="{{ .icon }}" alt="{{ .name }} icon" style="width: 24px; height: 24px; object-fit: contain; vertical-align: middle;">
-            {{ else }}
-              {{ .icon }}
-            {{ end }}
-          </div>
-          <div class="project-info">
-            <h3 class="project-name">{{ .name }}</h3>
-            <p class="project-desc">{{ .description }}</p>
-            <div class="project-tags">
-              {{ range .tags }}
-              <span class="project-tag">{{ . }}</span>
-              {{ end }}
-            </div>
-          </div>
-        </a>
-        {{ end }}
-      </div>
-    </div>
-    {{ end }}
-
     <div class="posts-section">
-      <h2 class="section-title">Newest</h2>
+      <h2 class="section-title">Latest Articles</h2>
       <ul class="post-list">
-        {{ range first 10 (where .Site.RegularPages "Section" "posts") }}
+        {{ $paginator := .Paginate (where .Site.RegularPages "Section" "posts") }}
+        {{ range $paginator.Pages }}
         <li class="post-item">
           <a class="post-link" href="{{ .RelPermalink }}">{{ .Title }}</a>
           <div class="post-meta">
@@ -62,6 +35,7 @@
         </li>
         {{ end }}
       </ul>
+      {{ template "_internal/pagination.html" . }}
     </div>
   </section>
 {{ end }}

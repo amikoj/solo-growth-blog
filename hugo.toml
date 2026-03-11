@@ -2,6 +2,11 @@ baseURL = "https://www.enjoytoday.cn/"
 languageCode = "en-us"
 title = "Mason's Build Logs"
 enableRobotsTXT = true
+enableGitInfo = true
+
+[frontmatter]
+  date = ["date", "publishDate", "lastmod"]
+  lastmod = ["lastmod", ":git", "date", "publishDate"]
 
 [pagination]
 pagerSize = 10
@@ -22,7 +27,7 @@ series = "series"
 
 [params]
 siteSubtitle = "One developer building in public. Sometimes it works, sometimes it doesn't."
-siteDescription = "A product log blog for indie builders. Learnings, releases, and experiments."
+siteDescription = "Mason's Build Logs - A solo developer's journey in indie hacking, AI engineering, and tech tutorials. Sharing real-world experiments, code snippets, and growth insights."
 author = "Mason"
 googleAnalyticsID = "G-0DZNVZWT2Q"
 adsenseClient = "ca-pub-5905842540305144"
@@ -54,11 +59,44 @@ beianLink = ""
 
 [menu]
   [[menu.main]]
-  name = "Posts"
-  pageRef = "/posts"
+  name = "Projects"
+  pageRef = "/projects"
   weight = 10
 
-  [[menu.main]]
+[[menu.main]]
+  name = "Tech"
+  identifier = "tech"
+  weight = 20
+
+[[menu.main]]
+  name = "AI"
+  pageRef = "/categories/ai-engineering"
+  parent = "tech"
+  weight = 10
+
+[[menu.main]]
+  name = "Dev"
+  pageRef = "/categories/dev-tutorials"
+  parent = "tech"
+  weight = 20
+
+[[menu.main]]
+  name = "Indie"
+  pageRef = "/categories/indie-hacking"
+  parent = "tech"
+  weight = 30
+
+[[menu.main]]
+  name = "Thoughts"
+  pageRef = "/categories/tech-thoughts"
+  weight = 30
+
+[[menu.main]]
+  name = "Notes"
+  pageRef = "/categories/reading-notes"
+  weight = 40
+
+[[menu.main]]
   name = "About"
   pageRef = "/about"
-  weight = 20
+  weight = 50
