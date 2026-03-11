@@ -1,0 +1,41 @@
+{{ if .Site.Params.giscus.repo }}
+<div class="comments">
+  <script src="https://giscus.app/client.js"
+          data-repo="{{ .Site.Params.giscus.repo }}"
+          data-repo-id="{{ .Site.Params.giscus.repoId }}"
+          data-category="{{ .Site.Params.giscus.category }}"
+          data-category-id="{{ .Site.Params.giscus.categoryId }}"
+          data-mapping="{{ default "pathname" .Site.Params.giscus.mapping }}"
+          data-strict="0"
+          data-reactions-enabled="{{ default "1" .Site.Params.giscus.reactionsEnabled }}"
+          data-emit-metadata="{{ default "0" .Site.Params.giscus.emitMetadata }}"
+          data-input-position="{{ default "bottom" .Site.Params.giscus.inputPosition }}"
+          data-theme="{{ default "preferred_color_scheme" .Site.Params.giscus.theme }}"
+          data-lang="{{ default "en" .Site.Params.giscus.lang }}"
+          crossorigin="anonymous"
+          async>
+  </script>
+</div>
+
+<script>
+  // Dynamic theme switching for Giscus
+  function updateGiscusTheme() {
+    const iframe = document.querySelector('iframe.giscus-frame');
+    if (!iframe) return;
+    
+    const theme = document.documentElement.getAttribute('data-theme') === 'light' ? 'light' : 'dark_dimmed';
+    iframe.contentWindow.postMessage({ giscus: { setConfig: { theme: theme } } }, 'https://giscus.app');
+  }
+
+  // Observer for theme changes
+  const observer = new MutationObserver(updateGiscusTheme);
+  observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
+  // Initial set (wait for iframe to load)
+  window.addEventListener('message', (event) => {
+    if (event.origin === 'https://giscus.app' && event.data.giscus && event.data.giscus.resizeHeight) {
+      updateGiscusTheme();
+    }
+  });
+</script>
+{{ end }}

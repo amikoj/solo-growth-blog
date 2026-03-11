@@ -51,6 +51,18 @@ beianLink = ""
     name = "date"
     weight = 10
 
+[params.giscus]
+  repo = "amikoj/repo" # e.g. "username/repo"
+  repoId = "YOUR_REPO_ID"
+  category = "Announcements" # e.g. "General" or "Announcements"
+  categoryId = "YOUR_CATEGORY_ID"
+  mapping = "pathname"
+  reactionsEnabled = "1"
+  emitMetadata = "0"
+  inputPosition = "bottom"
+  theme = "preferred_color_scheme"
+  lang = "en"
+
 [markup]
   [markup.goldmark.renderer]
   unsafe = true

@@ -44,6 +44,8 @@
       {{ end }}
     </div>
 
+    {{ partial "comments.html" . }}
+
     {{ $related := .Site.RegularPages.Related . | first 3 }}
     {{ with $related }}
     <div class="related-posts">
