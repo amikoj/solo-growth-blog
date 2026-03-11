@@ -38,6 +38,6 @@ export default {
             );
             return jsonResponse({ counts });
         }
-        return new Response("Not Found", { status: 404 });
+        return fetch(request);
     }
 }
