@@ -25,7 +25,7 @@
         {{ .Content }}
       </div>
       
-      {{ if .TableOfContents }}
+      {{ if and .TableOfContents (not .Params.hide_toc) }}
       <aside class="toc-sidebar">
         <div class="toc-container">
           <h3 class="toc-title">Table of Contents</h3>
@@ -63,4 +63,3 @@
 
   </article>
 {{ end }}
-

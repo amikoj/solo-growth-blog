@@ -52,10 +52,10 @@ beianLink = ""
     weight = 10
 
 [params.giscus]
-  repo = "amikoj/repo" # e.g. "username/repo"
-  repoId = "YOUR_REPO_ID"
+  repo = "amikoj/solo-growth-blog" # e.g. "username/repo"
+  repoId = "R_kgDORLvxcA"
   category = "Announcements" # e.g. "General" or "Announcements"
-  categoryId = "YOUR_CATEGORY_ID"
+  categoryId = "DIC_kwDORLvxcM4C4Jt9"
   mapping = "pathname"
   reactionsEnabled = "1"
   emitMetadata = "0"
