@@ -9,11 +9,11 @@ function jsonResponse(data, status = 200) {
 
 export default {
     async fetch(request, env) {
-        if (!env.VIEWS) {
-            return jsonResponse({ error: "KV binding missing" }, 500);
-        }
         const url = new URL(request.url);
         if (url.pathname === "/api/views" && request.method === "POST") {
+            if (!env.VIEWS) {
+                return jsonResponse({ error: "KV binding missing" }, 500);
+            }
             const body = await request.json().catch(() => null);
             const key = body && body.key;
             if (!key) {
@@ -25,6 +25,9 @@ export default {
             return jsonResponse({ key, count: next });
         }
         if (url.pathname === "/api/views/batch" && request.method === "POST") {
+            if (!env.VIEWS) {
+                return jsonResponse({ error: "KV binding missing" }, 500);
+            }
             const body = await request.json().catch(() => null);
             const keys = body && Array.isArray(body.keys) ? body.keys : [];
             const counts = {};
@@ -38,6 +41,9 @@ export default {
             );
             return jsonResponse({ counts });
         }
-        return fetch(request);
+        if (env.ASSETS) {
+            return env.ASSETS.fetch(request);
+        }
+        return new Response("Not Found", { status: 404 });
     }
 }

@@ -2,4 +2,6 @@ name = "solo-growth-blog"
 main = "workers/views.js"
 compatibility_date = "2025-03-11"
 
+assets = { directory = "dist-local" }
+
 kv_namespaces = [{ binding = "VIEWS", id = "4acf50c06a3347b1a9b6249720280ac6" }]
