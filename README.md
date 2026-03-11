@@ -14,6 +14,8 @@
 - `robots.txt` 显式声明 Sitemap
 - RSS：`/feed.xml`，并兼容 `/index.xml`（Vercel Redirect）
 - 国内访问可选展示备案信息（页脚）
+- Markdown 内容样式优化（代码块、行内代码、引用等）
+- 支持页面级隐藏目录（Front Matter: `hide_toc: true`）
 
 ## 目录结构（关键）
 
@@ -66,6 +68,11 @@ $env:HUGO_DEST="dist"; npm run build
 - `adsenseClient`：AdSense client（形如 `ca-pub-5905842540305144`）
 - `beianText`：备案展示文案（不填则不显示）
 - `beianLink`：备案链接（可选，不填则只显示文本）
+
+### 页面 Front Matter 可选项
+
+- `hide_breadcrumbs: true`：隐藏面包屑
+- `hide_toc: true`：隐藏右侧目录模块
 
 ### AdSense ads.txt
 
