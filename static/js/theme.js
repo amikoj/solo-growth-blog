@@ -96,6 +96,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 const value = Math.max(base, Number(counts[key] || 0));
                 setView(el, value);
             });
+            const topReads = document.querySelector('.most-read-list');
+            if (topReads) {
+                const items = Array.from(topReads.querySelectorAll('.most-read-item'));
+                const getItemCount = (item) => {
+                    const viewEl = item.querySelector('.post-views');
+                    if (!viewEl) return 0;
+                    const key = viewEl.dataset.viewKey;
+                    const base = Number(viewEl.dataset.viewBase || 0);
+                    return Math.max(base, Number(counts[key] || 0));
+                };
+                items
+                    .sort((a, b) => getItemCount(b) - getItemCount(a))
+                    .forEach((item) => topReads.appendChild(item));
+            }
         };
         updateViews();
     }
