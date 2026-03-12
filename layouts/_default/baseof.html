@@ -5,13 +5,44 @@
   </head>
   <body>
     {{ partial "header.html" . }}
+    <div class="search-modal" id="search-modal" aria-hidden="true">
+      <div class="search-modal-overlay" id="search-modal-overlay"></div>
+      <div class="search-modal-panel" role="dialog" aria-modal="true" aria-label="Search">
+        <div class="search-modal-header">
+          <input class="search-input" id="search-input" type="search" placeholder="Search articles..." autocomplete="off" />
+          <button class="search-modal-close" id="search-modal-close" type="button" aria-label="Close search">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+        <div class="search-result-count"></div>
+        <ul class="search-results"></ul>
+      </div>
+    </div>
     <div class="container">
       <main class="main">
         {{ block "main" . }}{{ end }}
       </main>
     </div>
     {{ partial "footer.html" . }}
+    {{ $scratch := newScratch }}
+    {{ $scratch.Set "items" (slice) }}
+    {{ range .Site.RegularPages }}
+      {{ if or (eq .Section "posts") (eq .Section "series") }}
+      {{ $scratch.Add "items" (slice (dict
+        "title" .Title
+        "url" .RelPermalink
+        "date" (.Date.Format "2006-01-02")
+        "tags" .Params.tags
+        "summary" (.Summary | plainify)
+        "content" .Plain
+      )) }}
+      {{ end }}
+    {{ end }}
+    {{ $searchPages := $scratch.Get "items" }}
+    <script id="search-index" type="application/json">{{ $searchPages | jsonify | safeJS }}</script>
     {{ partial "cookie-consent.html" . }}
   </body>
 </html>
-

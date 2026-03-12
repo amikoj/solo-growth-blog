@@ -113,4 +113,144 @@ document.addEventListener('DOMContentLoaded', () => {
         };
         updateViews();
     }
+    const searchIndexEl = document.getElementById('search-index');
+    const searchModal = document.getElementById('search-modal');
+    const searchToggle = document.getElementById('search-toggle');
+    
+    if (searchModal && searchToggle) {
+        let items = [];
+        try {
+            if (searchIndexEl) {
+                const content = searchIndexEl.textContent || '[]';
+                // Try parsing. If content is empty or invalid, fallback to empty array.
+                // We also check for potential HTML entity issues if safeJS didn't work as expected, 
+                // but usually safeJS fixes it.
+                const rawItems = JSON.parse(content) || [];
+                const normalize = (value) => (value || '').toLowerCase();
+                items = rawItems.map((item) => {
+                    const tags = Array.isArray(item.tags) ? item.tags.join(' ') : '';
+                    return {
+                        ...item,
+                        _text: [item.title, item.summary, item.content, tags].map(normalize).join(' ')
+                    };
+                });
+                console.log('Search index loaded:', items.length, 'items');
+            }
+        } catch (e) {
+            console.error('Failed to parse search index', e);
+        }
+
+        const input = document.getElementById('search-input');
+        const resultList = document.querySelector('.search-results');
+        const resultCount = document.querySelector('.search-result-count');
+        const searchOverlay = document.getElementById('search-modal-overlay');
+        const searchClose = document.getElementById('search-modal-close');
+        
+        const normalize = (value) => (value || '').toLowerCase();
+        
+        const highlightMatch = (text, query) => {
+            if (!query || !text) return text;
+            const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+            return text.replace(regex, '<mark>$1</mark>');
+        };
+
+        const renderResults = (query) => {
+            if (!resultList || !resultCount) return;
+            const value = normalize(query).trim();
+            resultList.innerHTML = '';
+            
+            if (!value) {
+                resultCount.textContent = 'Type to search...';
+                return;
+            }
+
+            const matches = items.filter((item) => item._text.includes(value));
+            resultCount.textContent = `${matches.length} result${matches.length === 1 ? '' : 's'} found`;
+
+            if (matches.length === 0) {
+                resultList.innerHTML = '<li class="search-no-results">No results found</li>';
+                return;
+            }
+
+            matches.slice(0, 50).forEach((item) => {
+                const listItem = document.createElement('li');
+                listItem.className = 'search-result-item';
+                
+                const link = document.createElement('a');
+                link.className = 'search-result-title';
+                link.href = item.url;
+                link.innerHTML = highlightMatch(item.title || 'Untitled', query);
+                listItem.appendChild(link);
+                
+                if (item.date) {
+                    const meta = document.createElement('div');
+                    meta.className = 'search-result-meta';
+                    meta.textContent = item.date;
+                    listItem.appendChild(meta);
+                }
+                
+                const snippetSource = (item.summary || item.content || '').trim();
+                if (snippetSource) {
+                    const snippet = snippetSource.length > 150 
+                        ? `${snippetSource.slice(0, 150)}...` 
+                        : snippetSource;
+                    const snippetEl = document.createElement('p');
+                    snippetEl.className = 'search-result-snippet';
+                    snippetEl.innerHTML = highlightMatch(snippet, query);
+                    listItem.appendChild(snippetEl);
+                }
+                
+                resultList.appendChild(listItem);
+            });
+        };
+
+        const openSearch = () => {
+            searchModal.classList.add('is-open');
+            searchModal.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+            if (input) {
+                input.focus();
+                // Clear previous results but keep text if any? Or clear text?
+                // Let's keep text if user wants to refine
+                if (input.value) renderResults(input.value);
+                else resultCount.textContent = 'Type to search...';
+            }
+        };
+
+        const closeSearch = () => {
+            searchModal.classList.remove('is-open');
+            searchModal.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+        };
+
+        if (input) {
+            input.addEventListener('input', (event) => {
+                renderResults(event.target.value);
+            });
+        }
+
+        searchToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            openSearch();
+        });
+
+        if (searchOverlay) {
+            searchOverlay.addEventListener('click', closeSearch);
+        }
+
+        if (searchClose) {
+            searchClose.addEventListener('click', closeSearch);
+        }
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && searchModal.classList.contains('is-open')) {
+                closeSearch();
+            }
+            // Optional: Command/Ctrl + K to open search
+            if ((event.metaKey || event.ctrlKey) && event.key === 'k') {
+                event.preventDefault();
+                openSearch();
+            }
+        });
+    }
 });
