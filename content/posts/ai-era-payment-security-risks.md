@@ -1,6 +1,6 @@
 +++
 title = "AI-Era Payment Security: Why a Single Database Leak Can Freeze Your Business"
-date = 2026-03-16T12:00:00Z
+date = 2026-03-16T01:00:00Z
 tags = ["security", "payment", "saas", "supabase"]
 categories = ["tech-thoughts"]
 description = "A cautionary tale about how a Supabase misconfiguration led to a 90-day fund freeze on Creem.io, and how you can avoid it."
