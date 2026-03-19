@@ -1,0 +1,37 @@
+categories:
+  tech:
+    description: "Technical articles covering frontend development, workflow tools, architecture, and web technologies."
+  dev-tutorials:
+    description: "Step-by-step guides and tutorials for developers, ranging from Chrome extensions to complex libraries like bpmn-js and docx.js."
+  tech-thoughts:
+    description: "Reflections, opinions, and insights on the tech industry, software engineering practices, and developer experiences."
+  technical-deep-dive:
+    description: "In-depth explorations of technical concepts, source code analysis, and architectural breakdowns."
+  ai-agents:
+    description: "Exploring the world of AI agents, LLMs, and building intelligent applications."
+  reading-notes:
+    description: "My personal reading notes, book summaries, and key takeaways from articles."
+
+tags:
+  bpmn-js:
+    description: "Articles focused on bpmn-js, the powerful library for viewing and editing BPMN 2.0 diagrams in the browser."
+  chrome-extension:
+    description: "Guides and tips for building, debugging, and deploying Google Chrome extensions, especially using Manifest V3."
+  docx:
+    description: "Everything related to working with Word documents in the browser, specifically using docx.js."
+  javascript:
+    description: "The core language of the web. Articles covering modern JavaScript, best practices, and ecosystem tools."
+  frontend:
+    description: "Frontend web development topics, including UI/UX, performance, frameworks, and architecture."
+  workflow:
+    description: "Topics related to business process modeling, workflow automation, and related tools."
+  web-development:
+    description: "General web development articles covering both frontend and backend concepts, tools, and methodologies."
+  architecture:
+    description: "Software architecture, system design, and engineering patterns for scalable applications."
+  manifest-v3:
+    description: "Deep dives into Chrome's Manifest V3, service workers, and extension capabilities."
+  llm:
+    description: "Large Language Models, prompt engineering, and integrating AI into software."
+  ai:
+    description: "Artificial Intelligence topics, including machine learning, agentic workflows, and practical applications."

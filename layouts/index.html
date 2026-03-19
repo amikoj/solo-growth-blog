@@ -8,6 +8,59 @@
     </div>
 
     <div class="home-layout">
+      <div class="main-content">
+        {{/* Recommended Series Section */}}
+        <div class="recommended-series-section" style="margin-bottom: 3rem;">
+          <h2 class="section-title">Recommended Series</h2>
+          <div class="series-grid" style="grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 1.5rem;">
+            {{/* 
+              To get the most recently updated series, we can iterate over all posts, 
+              collect their series, and keep track of the latest date for each series.
+              However, Hugo's taxonomy terms are sorted by count by default or we can sort by date.
+              Let's get all series terms and sort them by the date of their most recent page.
+            */}}
+            
+            {{ $seriesTerms := site.Taxonomies.series.ByCount }}
+            {{ $seriesWithDates := slice }}
+            
+            {{ range $term := $seriesTerms }}
+              {{ $latestDate := (index $term.Pages 0).Date }}
+              {{ $seriesWithDates = $seriesWithDates | append (dict "term" $term.Term "page" $term.Page "count" $term.Count "latestDate" $latestDate) }}
+            {{ end }}
+            
+            {{/* Sort by latest date descending and take top 3 */}}
+            {{ $sortedSeries := sort $seriesWithDates "latestDate" "desc" | first 3 }}
+            
+            {{ range $sortedSeries }}
+              {{ $seriesData := index site.Data.series .term }}
+              <a href="{{ .page.RelPermalink }}" class="series-card" style="box-shadow: 0 2px 4px rgba(0,0,0,0.05);">
+                <div class="series-cover" style="height: 100px; {{ if and $seriesData $seriesData.image }}background-image: url('{{ $seriesData.image }}'); background-size: cover; background-position: center;{{ else }}background: linear-gradient(135deg, var(--primary), #3b82f6);{{ end }}">
+                  <div class="series-pattern" style="position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.7));"></div>
+                  <h3 class="series-name" style="position: relative; z-index: 2; font-size: 1.2rem;">{{ if and $seriesData $seriesData.name }}{{ $seriesData.name }}{{ else }}{{ .page.Title }}{{ end }}</h3>
+                  {{ if and $seriesData $seriesData.status }}
+                    <span class="series-status {{ if eq $seriesData.status `Completed` }}status-ended{{ else }}status-updating{{ end }}" style="position: absolute; z-index: 2; top: 8px; right: 8px; font-size: 0.65rem; padding: 0.2rem 0.5rem;">{{ $seriesData.status }}</span>
+                  {{ end }}
+                </div>
+                <div class="series-info" style="padding: 1rem;">
+                  {{ if $seriesData }}
+                    <p class="series-desc" style="font-size: 0.85rem; margin-bottom: 1rem; line-height: 1.4;">{{ $seriesData.description | default "A collection of related articles." | truncate 60 }}</p>
+                    <div class="series-meta" style="font-size: 0.75rem; margin-bottom: 0; padding-bottom: 0; border-bottom: none;">
+                      <span class="meta-item">📝 {{ .count }}{{ if $seriesData.expected }} / {{ $seriesData.expected }}{{ end }} Posts</span>
+                      <span class="meta-item">⏱️ Updated: {{ .latestDate.Format "2006-01-02" }}</span>
+                    </div>
+                  {{ else }}
+                    <p class="series-desc" style="font-size: 0.85rem; margin-bottom: 1rem; line-height: 1.4;">A collection of related articles.</p>
+                    <div class="series-meta" style="font-size: 0.75rem; margin-bottom: 0; padding-bottom: 0; border-bottom: none;">
+                      <span class="meta-item">📝 {{ .count }} Posts</span>
+                      <span class="meta-item">⏱️ Updated: {{ .latestDate.Format "2006-01-02" }}</span>
+                    </div>
+                  {{ end }}
+                </div>
+              </a>
+            {{ end }}
+          </div>
+        </div>
+
       {{ $posts := where .Site.RegularPages "Section" "posts" }}
       <div class="posts-section">
         <h2 class="section-title">Latest Articles</h2>
@@ -54,6 +107,8 @@
           {{ end }}
         </ul>
         {{ template "_internal/pagination.html" . }}
+      </div>
+
       </div>
 
       <aside class="home-sidebar">

@@ -4,6 +4,7 @@ date: 2026-03-11T15:00:00+08:00
 draft: false
 tags: ["Chrome Extension", "Manifest V3", "Service Worker", "Migration", "JavaScript"]
 categories: ["Dev Tutorials", "Chrome Extension"]
+series: ["Chrome Extension Development"]
 description: "Manifest V2 is dead. Learn how to migrate your persistent background pages to ephemeral Service Workers in Manifest V3, handling state, alarms, and events correctly."
 ---
 

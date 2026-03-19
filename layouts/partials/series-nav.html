@@ -1,0 +1,33 @@
+{{ if .Params.series }}
+  {{ $seriesName := index .Params.series 0 }}
+  {{ $seriesPages := where .Site.RegularPages ".Params.series" "intersect" (slice $seriesName) }}
+  {{ $seriesPages := $seriesPages.ByDate }}
+  
+  {{ if gt (len $seriesPages) 1 }}
+  <div class="series-nav">
+    <div class="series-nav-header">
+      <span class="series-nav-title">📚 Reading Guide: {{ $seriesName }}</span>
+    </div>
+    <div class="series-nav-content">
+      <p class="series-nav-desc">This post is part of the <strong>{{ $seriesName }}</strong> series. Check out the other posts:</p>
+      <ul class="series-nav-list">
+        {{ range $index, $page := $seriesPages }}
+          <li class="series-nav-item {{ if eq $page.RelPermalink $.RelPermalink }}current{{ end }}">
+            {{ if eq $page.RelPermalink $.RelPermalink }}
+              <span class="series-nav-link current">
+                <span class="series-nav-number">Part {{ add $index 1 }}:</span> 
+                {{ $page.Title }} (You are here)
+              </span>
+            {{ else }}
+              <a class="series-nav-link" href="{{ $page.RelPermalink }}">
+                <span class="series-nav-number">Part {{ add $index 1 }}:</span> 
+                {{ $page.Title }}
+              </a>
+            {{ end }}
+          </li>
+        {{ end }}
+      </ul>
+    </div>
+  </div>
+  {{ end }}
+{{ end }}

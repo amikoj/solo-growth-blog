@@ -4,6 +4,7 @@ date: 2024-10-18T10:00:00+08:00
 draft: false
 tags: ["BPMN", "JavaScript", "Workflow", "Visualization", "Frontend"]
 categories: ["Dev Tutorials"]
+series: ["BPMN.js Mastery"]
 description: "BPMN-JS is a powerful library for rendering and editing business process diagrams in the browser. Learn its core architecture and how to integrate it into your web app."
 ---
 

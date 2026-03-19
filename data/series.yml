@@ -1,0 +1,79 @@
+"bpmn-js-mastery":
+  name: "BPMN.js Mastery"
+  start_date: "2024-10-18"
+  status: "Updating"
+  expected: 5
+  description: "A deep dive into bpmn-js and diagram-js, exploring core architecture, rendering, and custom elements."
+  target_audience: "Frontend developers building workflow editors or process modeling tools."
+  goal: "Master the internal architecture of bpmn-js to confidently build custom renderers, context pads, and complex extensions."
+  image: "https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&w=2070&auto=format&fit=crop"
+
+"chrome-extension-development":
+  name: "Chrome Extension Dev"
+  start_date: "2024-01-20"
+  status: "Completed"
+  expected: 3
+  description: "Step-by-step guides to building, migrating, and optimizing Chrome Extensions with Manifest V3."
+  target_audience: "Web developers looking to build browser extensions."
+  goal: "Understand Manifest V3 architecture, service workers, and content scripts to build production-ready extensions."
+  image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1974&auto=format&fit=crop"
+
+"docx-js-deep-dive":
+  name: "Docx.js Deep Dive"
+  start_date: "2024-02-14"
+  status: "Updating"
+  expected: 4
+  description: "Everything you need to know about generating, styling, and architecting Word documents in the browser."
+  target_audience: "Developers who need to generate complex Word documents client-side."
+  goal: "Learn how to structure, style, and generate complex .docx files using pure JavaScript."
+  image: "https://images.unsplash.com/photo-1568051243851-f9b15330a6f4?q=80&w=2070&auto=format&fit=crop"
+
+"solo-trial":
+  name: "Solo Trial"
+  start_date: "2024-01-01"
+  status: "Updating"
+  expected: 10
+  description: "My journey of building and launching indie products as a solo developer."
+  target_audience: "Indie hackers, solo founders, and developers exploring product development."
+  goal: "Share real-world experiences, failures, and lessons learned from building zero-to-one products."
+  image: "https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=2070&auto=format&fit=crop"
+
+"modern-web-dev":
+  name: "Modern Web Dev"
+  start_date: "2023-11-01"
+  status: "Updating"
+  expected: 6
+  description: "Exploring modern frontend frameworks, build tools, and web APIs."
+  target_audience: "Frontend engineers keeping up with the modern web ecosystem."
+  goal: "Provide clear, practical insights into modern tooling and web standards."
+  image: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=2072&auto=format&fit=crop"
+
+"personal-notes":
+  name: "Personal Notes"
+  start_date: "2023-01-01"
+  status: "Ongoing"
+  expected: 99
+  description: "My personal thoughts, reading notes, and general reflections."
+  target_audience: "Anyone interested in tech, career growth, or just random thoughts."
+  goal: "A digital garden to document my learning process and mental models."
+  image: "https://images.unsplash.com/photo-1517842645767-c639042777db?q=80&w=2070&auto=format&fit=crop"
+
+"tech":
+  name: "Tech"
+  start_date: "2023-01-01"
+  status: "Ongoing"
+  expected: 99
+  description: "General technical articles and engineering thoughts."
+  target_audience: "Software engineers and tech enthusiasts."
+  goal: "Share practical engineering solutions, architectural patterns, and tech industry insights."
+  image: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop"
+
+"mindgift":
+  name: "Mindgift Project"
+  start_date: "2024-03-01"
+  status: "Completed"
+  expected: 2
+  description: "The complete journey of building and shutting down Mindgift."
+  target_audience: "Entrepreneurs and developers interested in product lifecycles."
+  goal: "Document the technical architecture, product decisions, and post-mortem of a failed startup project."
+  image: "https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=2070&auto=format&fit=crop"

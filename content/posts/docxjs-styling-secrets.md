@@ -3,7 +3,7 @@ title = "Mastering Word Document Styling with docx.js"
 date = 2025-06-19T10:20:00Z
 tags = ["javascript", "docx", "web-development", "document-generation"]
 categories = ["tech-thoughts"]
-series = "tech"
+series = ["Docx.js Deep Dive"]
 description = "Generating Word documents in the browser is easy. Making them look professional is hard. Here are three strategies to tame the docx.js styling beast."
 +++
 

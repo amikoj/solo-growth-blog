@@ -4,6 +4,7 @@ date: 2026-03-19T01:00:00+08:00
 draft: false
 tags: ["bpmn-js", "Frontend", "JavaScript", "Workflow"]
 categories: ["Tech"]
+series: ["BPMN.js Mastery"]
 ---
 
 What's up, fellow code monkeys? Grab your extra-large coffee (or Diet Coke, if you're trying to watch the waistline like me). Today, we're diving deep into the guts of **bpmn-js**.

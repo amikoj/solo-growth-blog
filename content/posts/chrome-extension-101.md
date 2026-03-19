@@ -3,7 +3,7 @@ title = "Chrome Extension V3: Building Your First Plugin (2026 Update)"
 date = 2026-02-10T00:00:00Z
 tags = ["chrome-extension", "javascript", "manifest-v3", "web-development"]
 categories = ["dev-tutorials"]
-series = "modern-web-dev"
+series = ["Chrome Extension Development"]
 description = "A step-by-step guide to creating a Chrome Extension using Manifest V3. Covers service workers, popup interaction, and debugging."
 +++
 

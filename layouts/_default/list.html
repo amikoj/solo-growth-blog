@@ -1,6 +1,57 @@
 {{ define "main" }}
   <div class="page">
     <h1 class="page-title">{{ .Title }}</h1>
+    
+    {{ if eq .Kind "term" }}
+      {{ $taxonomy := .Data.Plural }}
+      {{ $term := .Data.Term }}
+      {{ $desc := "" }}
+      {{ $seriesStatus := "" }}
+      {{ $seriesStartDate := "" }}
+      {{ $seriesExpected := "" }}
+      {{ $seriesTargetAudience := "" }}
+      {{ $seriesGoal := "" }}
+      
+      {{ if eq $taxonomy "series" }}
+        {{ $seriesData := index site.Data.series $term }}
+        {{ if $seriesData }}
+          {{ $desc = $seriesData.description }}
+          {{ $seriesStatus = $seriesData.status }}
+          {{ $seriesStartDate = $seriesData.start_date }}
+          {{ $seriesExpected = $seriesData.expected }}
+          {{ $seriesTargetAudience = $seriesData.target_audience }}
+          {{ $seriesGoal = $seriesData.goal }}
+        {{ end }}
+      {{ else if isset site.Data.taxonomies $taxonomy }}
+        {{ $taxData := index site.Data.taxonomies $taxonomy }}
+        {{ if isset $taxData $term }}
+          {{ $termData := index $taxData $term }}
+          {{ $desc = $termData.description }}
+        {{ end }}
+      {{ end }}
+      
+      {{ if $desc }}
+        <div class="taxonomy-description">
+          <p>{{ $desc }}</p>
+          {{ if eq $taxonomy "series" }}
+            <div class="series-extended-meta" style="margin-top: 1rem; padding: 1rem; background: var(--surface); border-radius: 8px; border: 1px solid var(--border);">
+              {{ if $seriesTargetAudience }}
+                <p style="margin-bottom: 0.5rem; font-size: 0.95rem;"><strong>🎯 Target Audience:</strong> {{ $seriesTargetAudience }}</p>
+              {{ end }}
+              {{ if $seriesGoal }}
+                <p style="margin-bottom: 0.5rem; font-size: 0.95rem;"><strong>🚀 Goal:</strong> {{ $seriesGoal }}</p>
+              {{ end }}
+              <div class="series-meta-badges" style="margin-top: 1rem; display: flex; gap: 1rem; font-size: 0.9rem; color: var(--muted); padding-top: 1rem; border-top: 1px solid var(--border);">
+                {{ if $seriesStartDate }}<span>📅 Started: {{ $seriesStartDate }}</span>{{ end }}
+                <span>📝 Progress: {{ len .Pages }}{{ if $seriesExpected }} / {{ $seriesExpected }}{{ end }} Posts</span>
+                {{ if $seriesStatus }}<span class="series-status-inline {{ if eq $seriesStatus `Completed` }}status-ended{{ else }}status-updating{{ end }}" style="padding: 0.2rem 0.6rem; border-radius: 12px; background: var(--bg); border: 1px solid var(--border);">{{ $seriesStatus }}</span>{{ end }}
+              </div>
+            </div>
+          {{ end }}
+        </div>
+      {{ end }}
+    {{ end }}
+
     {{ with .Content }}
       <div class="content">{{ . }}</div>
     {{ end }}

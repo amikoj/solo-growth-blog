@@ -1,20 +1,37 @@
 {{ define "main" }}
-<div class="container">
+<div class="page">
   <div class="page-header">
     <h1 class="page-title">{{ .Title }}</h1>
-    {{ with .Content }}<div class="page-content">{{ . }}</div>{{ end }}
+    {{ with .Content }}<div class="content">{{ . }}</div>{{ end }}
   </div>
 
   <div class="series-grid">
     {{ range .Data.Terms.ByCount }}
+      {{ $term := .Term }}
+      {{ $seriesData := index site.Data.series $term }}
+      
       <a href="{{ .Page.RelPermalink }}" class="series-card">
-        <div class="series-cover">
-          <div class="series-pattern"></div>
-          <h3 class="series-name">{{ .Page.Title }}</h3>
+        <div class="series-cover" {{ if and $seriesData $seriesData.image }}style="background-image: url('{{ $seriesData.image }}'); background-size: cover; background-position: center;"{{ end }}>
+          <div class="series-pattern" style="position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.7));"></div>
+          <h3 class="series-name" style="position: relative; z-index: 2;">{{ if and $seriesData $seriesData.name }}{{ $seriesData.name }}{{ else }}{{ .Page.Title }}{{ end }}</h3>
+          {{ if and $seriesData $seriesData.status }}
+            <span class="series-status {{ if eq $seriesData.status `Completed` }}status-ended{{ else }}status-updating{{ end }}" style="position: absolute; z-index: 2; top: 12px; right: 12px;">{{ $seriesData.status }}</span>
+          {{ end }}
         </div>
         <div class="series-info">
-          <span class="series-count">{{ .Count }} Articles</span>
-          <span class="series-cta">Read Series &rarr;</span>
+          {{ if $seriesData }}
+            <p class="series-desc">{{ $seriesData.description | default "A collection of related articles." }}</p>
+            <div class="series-meta">
+              {{ if $seriesData.start_date }}<span class="meta-item">📅 {{ $seriesData.start_date }}</span>{{ end }}
+              <span class="meta-item">📝 {{ .Count }}{{ if $seriesData.expected }} / {{ $seriesData.expected }}{{ end }} Posts</span>
+            </div>
+          {{ else }}
+            <p class="series-desc">A collection of related articles.</p>
+            <div class="series-meta">
+              <span class="meta-item">📝 {{ .Count }} Posts</span>
+            </div>
+          {{ end }}
+          <div class="series-cta">Read Series &rarr;</div>
         </div>
       </a>
     {{ end }}

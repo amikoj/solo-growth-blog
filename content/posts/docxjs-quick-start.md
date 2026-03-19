@@ -3,7 +3,7 @@ title = "Generating Word Docs in the Browser with docx.js"
 date = 2024-02-14T10:00:00Z
 tags = ["javascript", "docx", "tutorial"]
 categories = ["tech-thoughts"]
-series = "tech"
+series = ["Docx.js Deep Dive"]
 description = "Stop generating PDFs for everything. Sometimes your users just want an editable Word doc. Here is how to do it in 5 minutes."
 +++
 

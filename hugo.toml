@@ -74,9 +74,14 @@ beianLink = ""
 
 [menu]
   [[menu.main]]
-  name = "Projects"
-  pageRef = "/projects"
+  name = "Series"
+  url = "/series/"
   weight = 10
+
+  [[menu.main]]
+  name = "Projects"
+  url = "/projects/"
+  weight = 15
 
 [[menu.main]]
   name = "Tech"

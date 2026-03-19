@@ -7,7 +7,18 @@
 
     <div class="terms-cloud">
       {{ range .Data.Terms.ByCount }}
-        <a href="{{ .Page.RelPermalink }}" class="term-item">
+        {{ $term := .Term }}
+        {{ $desc := "" }}
+        {{ $taxonomy := $.Data.Plural }}
+        {{ if isset site.Data.taxonomies $taxonomy }}
+          {{ $taxData := index site.Data.taxonomies $taxonomy }}
+          {{ if isset $taxData $term }}
+            {{ $termData := index $taxData $term }}
+            {{ $desc = $termData.description }}
+          {{ end }}
+        {{ end }}
+        
+        <a href="{{ .Page.RelPermalink }}" class="term-item" {{ if $desc }}title="{{ $desc }}"{{ end }}>
           <span class="term-name">{{ .Page.Title }}</span>
           <span class="term-count">{{ .Count }}</span>
         </a>

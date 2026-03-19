@@ -4,6 +4,7 @@ date: 2026-03-13T10:00:00+08:00
 draft: false
 tags: ["diagram-js", "bpmn-js", "javascript", "visualization"]
 categories: ["Technical Deep Dive"]
+series: ["BPMN.js Mastery"]
 description: "A deep dive into the core architecture of diagram-js, the powerful library powering bpmn-js. We explore its module system, event bus, and rendering pipeline."
 ---
 

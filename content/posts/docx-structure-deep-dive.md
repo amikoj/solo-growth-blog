@@ -4,6 +4,7 @@ date: 2026-03-17T01:00:00+08:00
 draft: false
 tags: ["docx", "javascript", "openxml", "architecture"]
 categories: ["Technical Deep Dive"]
+series: ["Docx.js Deep Dive"]
 description: "Ever wondered why your .docx files are basically ZIP files in disguise? Let's crack them open and see how docx.js handles the mess."
 ---
 

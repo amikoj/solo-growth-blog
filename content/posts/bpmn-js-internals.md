@@ -4,6 +4,7 @@ date: 2024-10-20T10:00:00+08:00
 draft: false
 tags: ["bpmn-js", "diagram-js", "javascript", "architecture", "frontend"]
 categories: ["Technical Deep Dive"]
+series: ["BPMN.js Mastery"]
 description: "A deep dive into the core architecture of bpmn-js. We explore how its module system, event bus, and command stack work together to create a powerful workflow editor."
 ---
 
