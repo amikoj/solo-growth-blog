@@ -1,6 +1,6 @@
 ---
 title: "Cracking Open bpmn-js: Elements and the Magic of diagram-js (A Frontend Bro's Guide)"
-date: 2024-03-19T01:00:00+08:00
+date: 2026-03-19T01:00:00+08:00
 draft: false
 tags: ["bpmn-js", "Frontend", "JavaScript", "Workflow"]
 categories: ["Tech"]
