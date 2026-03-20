@@ -8,7 +8,7 @@
   <div class="series-grid">
     {{ range .Data.Terms.ByCount }}
       {{ $term := .Term }}
-      {{ $seriesData := index site.Data.series $term }}
+      {{ $seriesData := index site.Data.series ($term | urlize) }}
       
       <a href="{{ .Page.RelPermalink }}" class="series-card">
         <div class="series-cover" {{ if and $seriesData $seriesData.image }}style="background-image: url('{{ $seriesData.image }}'); background-size: cover; background-position: center;"{{ end }}>

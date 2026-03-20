@@ -1,16 +1,18 @@
 categories:
   tech:
-    description: "Technical articles covering frontend development, workflow tools, architecture, and web technologies."
+    description: "Technical articles covering frontend development, workflow tools, architecture, and web technologies. Includes topics like software development, project management, and personal growth."
   dev-tutorials:
-    description: "Step-by-step guides and tutorials for developers, ranging from Chrome extensions to complex libraries like bpmn-js and docx.js."
+    description: "Step-by-step guides and tutorials for developers, ranging from Chrome extensions to complex libraries like bpmn-js and docx.js. Includes topics like software development, project management, and personal growth."
   tech-thoughts:
-    description: "Reflections, opinions, and insights on the tech industry, software engineering practices, and developer experiences."
+    description: "Reflections, opinions, and insights on the tech industry, software engineering practices, and developer experiences. Includes topics like software development, project management, and personal growth."
   technical-deep-dive:
-    description: "In-depth explorations of technical concepts, source code analysis, and architectural breakdowns."
-  ai-agents:
-    description: "Exploring the world of AI agents, LLMs, and building intelligent applications."
+    description: "In-depth explorations of technical concepts, source code analysis, and architectural breakdowns. Includes topics like software design patterns, performance optimization, and security."
+  ai-engineering:
+    description: "Exploring the world of AI agents, LLMs, and building intelligent applications. Includes topics like agentic workflows, prompt engineering, and integrating AI into software."
   reading-notes:
-    description: "My personal reading notes, book summaries, and key takeaways from articles."
+    description: "My personal reading notes, book summaries, and key takeaways from articles. Includes topics like software development, project management, and personal growth."
+  indie-hacking:
+    description: "Articles about indie hacking, self-employment, and building successful projects from scratch. Includes topics like project management, marketing, and business model."
 
 tags:
   bpmn-js:

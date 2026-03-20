@@ -13,7 +13,7 @@
       {{ $seriesGoal := "" }}
       
       {{ if eq $taxonomy "series" }}
-        {{ $seriesData := index site.Data.series $term }}
+        {{ $seriesData := index site.Data.series ($term | urlize) }}
         {{ if $seriesData }}
           {{ $desc = $seriesData.description }}
           {{ $seriesStatus = $seriesData.status }}

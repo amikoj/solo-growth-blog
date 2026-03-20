@@ -1,8 +1,8 @@
-"bpmn-js-mastery":
+"bpmn.js-mastery":
   name: "BPMN.js Mastery"
   start_date: "2024-10-18"
   status: "Updating"
-  expected: 5
+  expected: 10
   description: "A deep dive into bpmn-js and diagram-js, exploring core architecture, rendering, and custom elements."
   target_audience: "Frontend developers building workflow editors or process modeling tools."
   goal: "Master the internal architecture of bpmn-js to confidently build custom renderers, context pads, and complex extensions."
@@ -18,7 +18,7 @@
   goal: "Understand Manifest V3 architecture, service workers, and content scripts to build production-ready extensions."
   image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?q=80&w=1974&auto=format&fit=crop"
 
-"docx-js-deep-dive":
+"docx.js-deep-dive":
   name: "Docx.js Deep Dive"
   start_date: "2024-02-14"
   status: "Updating"
@@ -77,3 +77,13 @@
   target_audience: "Entrepreneurs and developers interested in product lifecycles."
   goal: "Document the technical architecture, product decisions, and post-mortem of a failed startup project."
   image: "https://images.unsplash.com/photo-1553877522-43269d4ea984?q=80&w=2070&auto=format&fit=crop"
+
+"python-quick-wins":
+  name: "Python Quick Wins"
+  start_date: "2026-03-20"
+  status: "Updating"
+  expected: 99
+  description: "Scenario-based solutions for everyday tasks using Python. From HTML parsing to document generation, quick scripts to automate your workflow."
+  target_audience: "Developers and knowledge workers looking to automate daily tasks with Python."
+  goal: "Provide practical, copy-pasteable Python scripts to solve real-world repetitive tasks."
+  image: "https://images.unsplash.com/photo-1526379095098-d400fd0bf935?q=80&w=2000&auto=format&fit=crop"

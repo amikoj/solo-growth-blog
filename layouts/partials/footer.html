@@ -26,7 +26,7 @@
       <ul class="footer-links">
         {{ $allSeries := site.Taxonomies.series.ByCount }}
         {{ range first 6 $allSeries }}
-          {{ $seriesData := index site.Data.series .Term }}
+          {{ $seriesData := index site.Data.series (.Term | urlize) }}
           <li>
             <a href="{{ .Page.RelPermalink }}">
               {{ if and $seriesData $seriesData.name }}{{ $seriesData.name }}{{ else }}{{ .Page.Title }}{{ end }}
