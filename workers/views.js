@@ -41,28 +41,31 @@ export default {
             );
             return jsonResponse({ counts });
         }
+        let response;
         if (env.ASSETS) {
-            let response = await env.ASSETS.fetch(request);
-            if (response.status === 404) {
-                // Try fetching /404 first (since Cloudflare might redirect /404.html to /404)
-                let notFoundResponse = await env.ASSETS.fetch(new Request(new URL("/404", request.url)));
-                
-                // If not found, fallback to /404.html
-                if (notFoundResponse.status !== 200) {
-                    notFoundResponse = await env.ASSETS.fetch(new Request(new URL("/404.html", request.url)));
-                }
-
-                if (notFoundResponse.status === 200 || notFoundResponse.status === 304) {
-                    const headers = new Headers(notFoundResponse.headers);
-                    headers.set("content-type", "text/html; charset=utf-8");
-                    return new Response(notFoundResponse.body, {
-                        status: 404,
-                        headers: headers
-                    });
-                }
-            }
-            return response;
+            response = await env.ASSETS.fetch(request);
+        } else {
+            response = new Response("Not Found", { status: 404 });
         }
-        return new Response("Not Found", { status: 404 });
+
+        if (response.status === 404 && env.ASSETS) {
+            // Try fetching /404 first (since Cloudflare might redirect /404.html to /404)
+            let notFoundResponse = await env.ASSETS.fetch(new Request(new URL("/404", request.url)));
+            
+            // If not found, fallback to /404.html
+            if (notFoundResponse.status !== 200) {
+                notFoundResponse = await env.ASSETS.fetch(new Request(new URL("/404.html", request.url)));
+            }
+
+            if (notFoundResponse.status === 200 || notFoundResponse.status === 304) {
+                const headers = new Headers(notFoundResponse.headers);
+                headers.set("content-type", "text/html; charset=utf-8");
+                return new Response(notFoundResponse.body, {
+                    status: 404,
+                    headers: headers
+                });
+            }
+        }
+        return response;
     }
 }
