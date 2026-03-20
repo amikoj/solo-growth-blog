@@ -1,12 +1,13 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="refresh" content="0; url=/">
-  <script>window.location.href = "/";</script>
-  <title>Redirecting...</title>
-</head>
-<body>
-  <p>If you are not redirected automatically, follow this <a href="/">link to home</a>.</p>
-</body>
-</html>
+{{ define "main" }}
+<div class="page-404" style="text-align: center; padding: 6rem 1rem; min-height: 50vh; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+  <div style="font-size: 8rem; margin-bottom: 1rem; color: var(--primary); font-weight: 900; line-height: 1; text-shadow: 4px 4px 0px rgba(0,0,0,0.05);">404</div>
+  <h1 style="font-size: 2.5rem; margin-bottom: 1.5rem; font-weight: 700;">Oops! Page Not Found</h1>
+  <p style="margin-bottom: 2.5rem; color: var(--text-muted); max-width: 500px; font-size: 1.1rem; line-height: 1.6;">
+    The page you are looking for might have been removed, had its name changed, or is temporarily unavailable. 
+  </p>
+  <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+    <a href="/" class="btn" style="padding: 0.8rem 1.8rem; background: var(--primary); color: white; text-decoration: none; border-radius: 8px; font-weight: 600; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: transform 0.2s, box-shadow 0.2s;">Return to Homepage</a>
+    <button onclick="document.getElementById('search-modal').setAttribute('aria-hidden', 'false')" class="btn" style="padding: 0.8rem 1.8rem; background: var(--bg-alt, #f3f4f6); color: var(--text); border: 1px solid var(--border, #e5e7eb); text-decoration: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: background 0.2s;">Search Site</button>
+  </div>
+</div>
+{{ end }}

@@ -42,7 +42,17 @@ export default {
             return jsonResponse({ counts });
         }
         if (env.ASSETS) {
-            return env.ASSETS.fetch(request);
+            let response = await env.ASSETS.fetch(request);
+            if (response.status === 404) {
+                const notFoundResponse = await env.ASSETS.fetch(new Request(new URL("/404.html", request.url)));
+                if (notFoundResponse.status === 200) {
+                    return new Response(notFoundResponse.body, {
+                        status: 404,
+                        headers: notFoundResponse.headers
+                    });
+                }
+            }
+            return response;
         }
         return new Response("Not Found", { status: 404 });
     }
