@@ -44,11 +44,20 @@ export default {
         if (env.ASSETS) {
             let response = await env.ASSETS.fetch(request);
             if (response.status === 404) {
-                const notFoundResponse = await env.ASSETS.fetch(new Request(new URL("/404.html", request.url)));
-                if (notFoundResponse.status === 200) {
+                // Try fetching /404 first (since Cloudflare might redirect /404.html to /404)
+                let notFoundResponse = await env.ASSETS.fetch(new Request(new URL("/404", request.url)));
+                
+                // If not found, fallback to /404.html
+                if (notFoundResponse.status !== 200) {
+                    notFoundResponse = await env.ASSETS.fetch(new Request(new URL("/404.html", request.url)));
+                }
+
+                if (notFoundResponse.status === 200 || notFoundResponse.status === 304) {
+                    const headers = new Headers(notFoundResponse.headers);
+                    headers.set("content-type", "text/html; charset=utf-8");
                     return new Response(notFoundResponse.body, {
                         status: 404,
-                        headers: notFoundResponse.headers
+                        headers: headers
                     });
                 }
             }
