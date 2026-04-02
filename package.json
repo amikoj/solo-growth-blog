@@ -5,9 +5,12 @@
     "dev": "hugo server -D --disableFastRender",
     "build": "node -e \"const {spawnSync}=require('child_process'); const dest=process.env.HUGO_DEST || (process.env.VERCEL ? 'dist' : 'dist-local'); const r=spawnSync('hugo',['--gc','--minify','-d',dest],{stdio:'inherit',shell:true}); process.exit(r.status ?? 1);\"",
     "build:vercel": "hugo --gc --minify -d dist",
-    "build:local": "hugo --gc --minify -d dist-local"
+    "build:local": "hugo --gc --minify -d dist-local",
+    "deploy": "npx hugo && wrangler deploy",
+    "preview": "npx hugo && wrangler dev"
   },
   "devDependencies": {
-    "hugo-bin": "^0.149.2"
+    "hugo-bin": "^0.149.2",
+    "wrangler": "^4.72.0"
   }
 }
